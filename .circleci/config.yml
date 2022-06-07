@@ -21,10 +21,7 @@ jobs:
           name: "Say hello"
           command: "echo Hello, World!"
       - run: npm install
-      - run: npx react-native bundle
-      - run: npx react-native info
-      - run: npx react-native log-android
-      - run: npx react-native run-android
+      - run: .gradlew assembleRelease
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
