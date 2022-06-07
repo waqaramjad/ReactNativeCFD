@@ -22,8 +22,7 @@ jobs:
           command: "echo Hello, World!"
       - run: npm install
       - run: ls
-      - run: gradle init
-      - run: ./gradlew assembleRelease
+      - run: cd android && ./gradlew assembleRelease
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
