@@ -22,6 +22,7 @@ jobs:
           command: "echo Hello, World!"
       - run: npm install
       - run: ls
+      - run: gradle init
       - run: ./gradlew assembleRelease
 
 # Invoke jobs via workflows
