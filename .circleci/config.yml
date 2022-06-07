@@ -21,6 +21,7 @@ jobs:
           name: "Say hello"
           command: "echo Hello, World!"
       - run: npm install
+      - run: ls
       - run: ./gradlew assembleRelease
 
 # Invoke jobs via workflows
