@@ -22,8 +22,8 @@ jobs:
           command: "echo Hello, World!"
       - run: npm install
       - run: ls
-      - run: RUN apt-get update && \ apt-get install -y openjdk-8-jdk && \ vapt-get install -y ant && \ apt-get clean;
-      - run: RUN apt-get update && \ apt-get install ca-certificates-java && \ apt-get clean && \ update-ca-certificates -f;
+      - run: apt-get update && \ apt-get install -y openjdk-8-jdk && \ vapt-get install -y ant && \ apt-get clean;
+      - run: apt-get update && \ apt-get install ca-certificates-java && \ apt-get clean && \ update-ca-certificates -f;
       - run: ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/ RUN export JAVA_HOME
       - run: java -version
       - run: cd android && ./gradlew assembleRelease
