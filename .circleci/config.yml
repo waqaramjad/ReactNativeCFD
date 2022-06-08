@@ -13,6 +13,7 @@ jobs:
     # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
     # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
     docker:
+      #  - image: cimg/openjdk:17.0.3
        - image: cimg/android:2022.04
     steps:
       - checkout
@@ -25,8 +26,12 @@ jobs:
           command: "echo Hello, World!"
       - run: ls
       - run: emulator -list-avds
-      - run: gradlew tasks
+      - android/create-avd:
+          avd-name: myavd
+          install: true
+          system-image: system-images;android-29;default;x86
       - run: cd android && ./gradlew assembleRelease --warning-mode=all
+      
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
