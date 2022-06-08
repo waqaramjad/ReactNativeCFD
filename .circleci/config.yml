@@ -12,17 +12,17 @@ jobs:
     # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
     # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
     docker:
-      - image: cimg/base:stable
+      # - image: cimg/base:stable
       - image: cimg/openjdk:17.0.3
     steps:
       - checkout
-      - node/install:
-          install-yarn: false
-          node-version: '16.13'
+      # - node/install:
+      #     install-yarn: false
+      #     node-version: '16.13'
       - run:
           name: "Say hello"
           command: "echo Hello, World!"
-      - run: npm install
+      # - run: npm install
       - run: ls
       - run: java --version
       # - run: sudo apt-get update && sudo apt-get install -y openjdk-8-jdk && sudo apt-get install -y ant && sudo apt-get clean;
