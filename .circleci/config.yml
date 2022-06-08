@@ -21,24 +21,20 @@ jobs:
           install-yarn: false
           node-version: '16.13'
       - run: npm install
-      - run:
-          name: "Say hello"
-          command: "echo Hello, World!"
-      - run: ls
       - android/create-avd:
-          avd-name: myavd
+          avd-name: [ myavd, myavd2]
           install: true
-          system-image: system-images;android-29;default;x86
+          system-image: [ system-images;android-28;default;x86 , system-images;android-29;default;x86]
       - run: emulator -list-avds
       - run: emulator -avd myavd
       - run: cd android && ./gradlew assembleRelease --warning-mode=all #builds a release build
       - android/start-emulator:
-          avd-name: myavd
+          avd-name: [myavd, myavd2]
           no-window: true
-          restore-gradle-cache-prefix: v1a
+          restore-gradle-cache-prefix: [ v1a , v2a ]
       - android/run-tests
       - android/save-gradle-cache:
-          cache-prefix: v1a
+          cache-prefix: [ v1a, v2a ]
       
 
 # Invoke jobs via workflows
