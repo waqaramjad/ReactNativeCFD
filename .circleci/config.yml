@@ -25,7 +25,7 @@ jobs:
       #     avd-name: myavd
       #     install: true
       #     system-image: system-images;android-29;default;x86
-      - run: sdkmanager system-images;android-29;default;x86
+      - run: sdkmanager "system-images;android-29;default;x86"
       - run: avdmanager --verbose create avd -n "myavd" -k "system-images;android-29;default;x86"
       - run: emulator -list-avds
       - run: emulator -avd myavd
