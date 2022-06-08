@@ -24,6 +24,7 @@ jobs:
           command: "echo Hello, World!"
       - run: ls
       - run: ./gradlew tasks
+      - run: emulator -list-avds
       - run: cd android && ./gradlew assembleRelease --warning-mode=all
 
 # Invoke jobs via workflows
