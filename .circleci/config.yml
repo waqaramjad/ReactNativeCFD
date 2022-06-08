@@ -24,7 +24,7 @@ jobs:
       - android/create-avd:
           avd-name: myavd
           install: true
-          system-image: system-images;android-28;default;x86
+          system-image: system-images;android-29;default;x86
       - run: emulator -list-avds
       - run: emulator -avd myavd
       - run: cd android && ./gradlew assembleRelease --warning-mode=all #builds a release build
