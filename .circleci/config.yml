@@ -22,19 +22,19 @@ jobs:
           node-version: '16.13'
       - run: npm install
       - android/create-avd:
-          avd-name: [ myavd, myavd2]
+          avd-name: myavd
           install: true
-          system-image: [ system-images;android-28;default;x86 , system-images;android-29;default;x86]
+          system-image: system-images;android-28;default;x86
       - run: emulator -list-avds
       - run: emulator -avd myavd
       - run: cd android && ./gradlew assembleRelease --warning-mode=all #builds a release build
       - android/start-emulator:
-          avd-name: [myavd, myavd2]
+          avd-name: myavd
           no-window: true
-          restore-gradle-cache-prefix: [ v1a , v2a ]
+          restore-gradle-cache-prefix: v1a
       - android/run-tests
       - android/save-gradle-cache:
-          cache-prefix: [ v1a, v2a ]
+          cache-prefix: v1a
       
 
 # Invoke jobs via workflows
