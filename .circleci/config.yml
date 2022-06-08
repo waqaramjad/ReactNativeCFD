@@ -23,7 +23,7 @@ jobs:
           name: "Say hello"
           command: "echo Hello, World!"
       - run: ls
-      - run: gradlew tasks
+      - run: ./gradlew tasks
       - run: cd android && ./gradlew assembleRelease --warning-mode=all
 
 # Invoke jobs via workflows
