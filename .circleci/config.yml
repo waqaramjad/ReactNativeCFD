@@ -7,6 +7,7 @@ version: 2.1
 orbs: 
   node: circleci/node@5.0.2
   gradle: circleci/gradle@2.2.0
+  android: circleci/android@2.0.3
 jobs:
   say-hello:
     # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
