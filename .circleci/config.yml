@@ -61,6 +61,8 @@ jobs:
       # - android/start-emulator-and-run-tests:
       #     run-tests-working-directory: android
       - run: cd android/app/build && ls
+      - store_test_results:
+          path: android/app/build/reports
       
       
       
