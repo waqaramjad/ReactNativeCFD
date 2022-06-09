@@ -19,7 +19,7 @@ jobs:
       system-image:
         type: string
     machine:
-      image: <<paramaters.image>>
+      image: <<paramaters.android-image>>
     steps:
       - checkout
       - node/install:
