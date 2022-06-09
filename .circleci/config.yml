@@ -8,7 +8,7 @@ orbs:
   node: circleci/node@5.0.2
   android: circleci/android@2.0.3
 jobs:
-  say-hello:
+  build-and-test:
     # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
     # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
     parameters:
@@ -84,9 +84,9 @@ jobs:
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
-  say-hello-workflow:
+  build-and-test-workflow:
     jobs:
-      - say-hello:
+      - build-and-test:
           matrix:
             parameters:
               android-image: [android:2022.04.1, android:2022.01.1, android:2021.10.1]
