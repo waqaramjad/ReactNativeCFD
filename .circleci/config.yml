@@ -37,7 +37,6 @@ jobs:
           key: build-cache
           paths: 
             - android/app/build/outputs/apk
-      - run: cd android && ./gradlew assembleDebugAndroidTest
       - run:
           command: |
             run_with_retry() {
@@ -65,7 +64,7 @@ jobs:
       # - android/start-emulator-and-run-tests:
       #     run-tests-working-directory: android
       - store_test_results:
-          path: android/app/build/test-results
+          path: android/app/build/test-results/testDebugUnitTest
       - store_artifacts:
           path: android/app/build/test-results
           destination: artifact-file
