@@ -17,12 +17,12 @@ jobs:
       node-version:
         type: string
     machine:
-      image: << paramaters.image >>
+      image: <<paramaters.image>>
     steps:
       - checkout
       - node/install:
           install-yarn: false
-          node-version: << paramaters.node-version >>
+          node-version: <<paramaters.node-version>>
       - restore_cache:
           key: node-cache
       - run: npm install
