@@ -45,7 +45,7 @@ jobs:
                 until [ $n -gt $MAX_TRIES ]
                 do
                   echo "Starting test attempt $n"
-                  cd android && ./gradlew connectedDebugAndroidTest && break
+                  cd android && ./gradlew test && break
                   n=$[$n+1]
                   sleep 5
                 done
