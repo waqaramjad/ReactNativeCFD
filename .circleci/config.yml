@@ -58,7 +58,7 @@ jobs:
             run_with_retry
           name: Run tests with max tries of 2
       - run: cd android && ./gradlew test
-      - run: ls
+      - run: cd __tests__ ls
       - run: cd android/app/build/reports && ls
       # - run: emulator -avd myavd -no-window -no-audio -no-boot-anim -verbose -no-snapshot -gpu swiftshader_indirect
       # - android/start-emulator-and-run-tests:
