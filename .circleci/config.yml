@@ -69,7 +69,9 @@ jobs:
       - store_artifacts:
           path: android/app/build/test-results
           destination: artifact-file
-
+      - store_artifacts:
+          path: android/app/build/outputs/apk
+          destination: build
       
       
 
