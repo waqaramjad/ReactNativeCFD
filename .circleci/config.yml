@@ -11,8 +11,7 @@ orbs:
 executors:
   linux: # a Linux VM running Ubuntu 20.04
     machine:
-      - image: system-images;android-29;default;x86_64
-      - image: system-images;android-28;default;x86_64
+       image: system-images;android-29;default;x86_64
 
 jobs:
   build-and-test:
