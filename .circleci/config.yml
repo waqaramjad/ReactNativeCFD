@@ -18,6 +18,8 @@ jobs:
         type: string
       system-image:
         type: string
+      avd:
+        type: string
     machine:
       image: <<paramaters.android-image>>
     steps:
@@ -67,7 +69,6 @@ jobs:
       - run: cd android && ./gradlew connectedAndroidTest
       - run: cd __tests__ && ls
       - run: cd android/app/build && ls
-      # - run: emulator -avd myavd -no-window -no-audio -no-boot-anim -verbose -no-snapshot -gpu swiftshader_indirect
       # - android/start-emulator-and-run-tests:
       #     run-tests-working-directory: android
       - store_test_results:
@@ -78,6 +79,7 @@ jobs:
       - store_artifacts:
           path: android/app/build/outputs/apk
           destination: build
+      - run: emulator -avd <<paramaters.avd>> -no-window -no-audio -no-boot-anim -verbose -no-snapshot -gpu swiftshader_indirect
       
       
 
