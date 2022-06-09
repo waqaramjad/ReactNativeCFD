@@ -51,11 +51,3 @@ allprojects {
         maven { url 'https://www.jitpack.io' }
     }
 }
-
-tasks.withType(Test) { 
-  testLogging {
-    exceptionFormat "full"
-    events "started", "skipped", "passed", "failed"
-    showStandardStreams true
-  }
-}

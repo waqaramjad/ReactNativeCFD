@@ -267,9 +267,23 @@ android {
             java.srcDirs = ['src/test/java']
         }
     }
+    tasks.withType(Test) { 
+        testLogging {
+            exceptionFormat "full"
+            events "started", "skipped", "passed", "failed"
+            showStandardStreams true
+        }
+    }
+    
+}
+
+repositories {
+    mavenCentral()
 }
 
 dependencies {
+    testImplementation 'junit:junit:4.13'
+     testImplementation('org.junit.jupiter:junit-jupiter:5.8.2')
     implementation fileTree(dir: "libs", include: ["*.jar"])
 
     //noinspection GradleDynamicVersion
