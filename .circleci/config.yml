@@ -13,8 +13,10 @@ jobs:
     # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
     parameters:
       image:
-        type: string
+        type: image
       node-version:
+        type: string
+      system-image:
         type: string
     machine:
       image: <<paramaters.image>>
@@ -30,7 +32,7 @@ jobs:
           key: node-cache
           paths: 
             - node_modules
-      - run: sdkmanager "system-images;android-29;default;x86_64"
+      - run: sdkmanager <<paramaters.system-image>>
       - run: echo "no" | avdmanager --verbose create avd -n "myavd" -k "system-images;android-29;default;x86_64"
       - run: emulator -list-avds
       - run: adb start-server
@@ -89,3 +91,4 @@ workflows:
             parameters:
               image: [android:2022.04.1, android:2022.01.1, android:2021.10.1]
               node-version: ["10.9.0", "11.9.0", "12.9.1", "13.9.0"]
+              system-image: ["system-images;android-29;default;x86_64", "system-images;android-28;default;x86_64"]
