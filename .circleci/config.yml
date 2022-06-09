@@ -20,9 +20,9 @@ jobs:
           node-version: '16.13'
       - run: npm install
       - run: sdkmanager "system-images;android-29;default;x86_64"
-      - run: echo "no" | avdmanager --verbose create avd -n "myavd" -k "system-images;android-29;default;x86_64"
-      - run: emulator -list-avds
-      - run: sudo emulator -avd myavd -gpu auto
+      - run: cd android && echo "no" | avdmanager --verbose create avd -n "myavd" -k "system-images;android-29;default;x86_64"
+      - run: cd android && emulator -list-avds
+      - run: cd android && emulator -avd myavd -gpu auto
       - run: cd android && ./gradlew assembleRelease --warning-mode=all #builds a release build
       - android/run-tests
       - android/save-gradle-cache:
