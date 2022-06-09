@@ -27,7 +27,7 @@ jobs:
       - run: ls
       #- run: emulator -avd myavd -gpu auto
       - android/start-emulator-and-run-tests:
-          working-directory: android
+          run-tests-working-directory: android
       - android/save-gradle-cache:
           cache-prefix: v1a
       
