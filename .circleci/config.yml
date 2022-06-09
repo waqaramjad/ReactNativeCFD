@@ -60,7 +60,7 @@ jobs:
       # - run: emulator -avd myavd -no-window -no-audio -no-boot-anim -verbose -no-snapshot -gpu swiftshader_indirect
       # - android/start-emulator-and-run-tests:
       #     run-tests-working-directory: android
-      - run: ls
+      - run: cd android/app/build && ls
       
       
       
