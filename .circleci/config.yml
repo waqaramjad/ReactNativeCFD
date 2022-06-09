@@ -64,9 +64,9 @@ jobs:
       # - android/start-emulator-and-run-tests:
       #     run-tests-working-directory: android
       - store_test_results:
-          path: android/app/build/reports/androidTests
+          path: android/app/build/reports
       - store_artifacts:
-          path: android/app/build/reports/androidTests
+          path: android/app/build/reports
           destination: artifact-file
       
       
