@@ -33,7 +33,7 @@ jobs:
           paths: 
             - node_modules
       - run: sdkmanager <<paramaters.system-image>>
-      - run: echo "no" | avdmanager --verbose create avd -n "myavd" -k "system-images;android-29;default;x86_64"
+      - run: echo "no" | avdmanager --verbose create avd -n <<paramaters.avd>> -k <<paramaters.system-image>>
       - run: emulator -list-avds
       - run: adb start-server
       - restore_cache:
@@ -92,3 +92,4 @@ workflows:
               android-image: [android:2022.04.1, android:2022.01.1, android:2021.10.1]
               node-version: ["10.9.0", "11.9.0", "12.9.1", "13.9.0"]
               system-image: ["system-images;android-29;default;x86_64", "system-images;android-28;default;x86_64"]
+              avd: ["avd1", "avd2", "avd3"]
