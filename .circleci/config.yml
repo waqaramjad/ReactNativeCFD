@@ -18,13 +18,25 @@ jobs:
       - node/install:
           install-yarn: false
           node-version: '16.13'
+      - restore_cache:
+          key: node-cache
       - run: npm install
+      - save_cache:
+          key: node-cache
+          paths: 
+            - node_modules
       - run: sdkmanager "system-images;android-29;default;x86_64"
       - run: echo "no" | avdmanager --verbose create avd -n "myavd" -k "system-images;android-29;default;x86_64"
       - run: emulator -list-avds
       - run: adb start-server
+      - restore_cache:
+          key: build-cache
       - run: cd android && ./gradlew assembleRelease --warning-mode=all #builds a release build
-      - run: cd android/app && ls
+      - run: cd android/app/build/outputs/apk && ls
+      - save_cache:
+          key: build-cache
+          paths: 
+            - android/app/build/outputs/apk
       - run: cd android && ./gradlew assembleDebugAndroidTest
       - run:
           command: |
@@ -49,6 +61,7 @@ jobs:
       # - android/start-emulator-and-run-tests:
       #     run-tests-working-directory: android
       - run: ls
+      
       
       
 
