@@ -3,10 +3,17 @@ version: 2.1
 orbs: 
   node: circleci/node@5.0.2
   android: circleci/android@2.0.3
-executors:
-  docker:
-    machine:
-      image: android:2022.04.1
+
+workflows:
+  build-and-test-workflow:
+    jobs:
+      - build-and-test:
+         matrix:
+            parameters:
+              android-image: [android:2022.04.1, android:2022.01.1, android:2021.10.1]
+              node-version: ["10.9.0", "11.9.0", "12.9.1", "13.9.0"]
+              system-image: ["system-images;android-29;default;x86_64", "system-images;android-28;default;x86_64"]
+              avd: ["avd1", "avd2", "avd3"]
 
 jobs:
   build-and-test:
@@ -19,7 +26,8 @@ jobs:
         type: string
       avd:
         type: string
-    executor: docker
+    machine:
+      image: <<paramaters.android-image>>
     steps:
       - checkout
       - node/install:
@@ -78,14 +86,3 @@ jobs:
           path: android/app/build/outputs/apk
           destination: build
       - run: emulator -avd <<paramaters.avd>> -no-window -no-audio -no-boot-anim -verbose -no-snapshot -gpu swiftshader_indirect
-      
-workflows:
-  build-and-test-workflow:
-    jobs:
-      - build-and-test:
-         matrix:
-            parameters:
-              android-image: [android:2022.04.1, android:2022.01.1, android:2021.10.1]
-              node-version: ["10.9.0", "11.9.0", "12.9.1", "13.9.0"]
-              system-image: ["system-images;android-29;default;x86_64", "system-images;android-28;default;x86_64"]
-              avd: ["avd1", "avd2", "avd3"]
