@@ -12,14 +12,14 @@ jobs:
     # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
     # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
     parameters:
-      # android-image:
-      #   type: string
+      android-image:
+        type: string
       node-version:
         type: string
       system-image:
         type: string
-    machine: 
-      image: android:2022.04.1
+    machine:
+      image: <<paramaters.android-image>>
     steps:
       - checkout
       - node/install:
@@ -89,6 +89,6 @@ workflows:
       - build-and-test:
           matrix:
             parameters:
-              # android-image: [android:2022.04.1, android:2022.01.1, android:2021.10.1]
+              android-image: [android:2022.04.1, android:2022.01.1, android:2021.10.1]
               node-version: ["10.9.0", "11.9.0", "12.9.1", "13.9.0"]
               system-image: ["system-images;android-29;default;x86_64", "system-images;android-28;default;x86_64"]
