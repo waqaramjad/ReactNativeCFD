@@ -23,8 +23,8 @@ jobs:
       - run: echo "no" | avdmanager --verbose create avd -n "myavd" -k "system-images;android-29;default;x86_64"
       - run: emulator -list-avds
       - run: adb start-server
-      - run: emulator -avd myavd -gpu auto
       - run: cd android && ./gradlew assembleRelease --warning-mode=all #builds a release build
+      - run: emulator -avd myavd -gpu auto
       - android/run-tests
       - android/save-gradle-cache:
           cache-prefix: v1a
