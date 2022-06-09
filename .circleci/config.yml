@@ -25,9 +25,9 @@ jobs:
       - run: adb start-server
       - run: cd android && ./gradlew assembleRelease --warning-mode=all #builds a release build
       - run: ls
-      #- run: emulator -avd myavd -gpu auto
-      - android/start-emulator-and-run-tests:
-          run-tests-working-directory: android
+      - run: emulator -no-window -no-audio -no-boot-anim -verbose -no-snapshot -gpu swiftshader_indirect
+      # - android/start-emulator-and-run-tests:
+      #     run-tests-working-directory: android
       - android/save-gradle-cache:
           cache-prefix: v1a
       
