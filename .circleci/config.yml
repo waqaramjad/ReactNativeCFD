@@ -20,8 +20,6 @@ jobs:
       avd:
         type: string
     executor: docker
-    machine:
-      image: <<paramaters.android-image>>
     steps:
       - checkout
       - node/install:
