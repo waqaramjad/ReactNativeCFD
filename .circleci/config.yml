@@ -48,8 +48,8 @@ jobs:
       # - run: emulator -avd myavd -no-window -no-audio -no-boot-anim -verbose -no-snapshot -gpu swiftshader_indirect
       # - android/start-emulator-and-run-tests:
       #     run-tests-working-directory: android
-      - android/save-gradle-cache:
-          cache-prefix: v1a
+      - run: ls
+      
       
 
 # Invoke jobs via workflows
