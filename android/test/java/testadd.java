@@ -4,4 +4,5 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @Test
 public void testAdd() {
     assertEquals(42, Integer.sum(19, 23));
+    System.out.println("This test method should be run as well");
 }
