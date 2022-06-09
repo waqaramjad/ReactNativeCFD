@@ -26,7 +26,8 @@ jobs:
       - run: cd android && ./gradlew assembleRelease --warning-mode=all #builds a release build
       - run: ls
       #- run: emulator -avd myavd -gpu auto
-      - android/start-emulator-and-run-tests
+      - android/start-emulator-and-run-tests:
+          working-directory: android
       - android/save-gradle-cache:
           cache-prefix: v1a
       
