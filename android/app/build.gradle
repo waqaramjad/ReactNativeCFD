@@ -148,7 +148,7 @@ android {
                 ndkBuild {
                     arguments "APP_PLATFORM=android-21",
                         "APP_STL=c++_shared",
-                        "NDK_TOOLCHAIN_VERSION=clang",
+                        "NDK_TOOLCHAIN_VERSION=clang    ",
                         "GENERATED_SRC_DIR=$buildDir/generated/source",
                         "PROJECT_BUILD_DIR=$buildDir",
                         "REACT_ANDROID_DIR=$rootDir/../node_modules/react-native/ReactAndroid",
@@ -255,6 +255,16 @@ android {
                         defaultConfig.versionCode * 1000 + versionCodes.get(abi)
             }
 
+        }
+    }
+    testOptions {
+        unitTests.all {
+            useJUnitPlatform()
+        }
+    }
+    sourceSets {
+        androidTest {
+            java.srcDirs = ['src/test/java']
         }
     }
 }

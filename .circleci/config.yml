@@ -69,14 +69,7 @@ jobs:
       - store_artifacts:
           path: android/app/build/reports
           destination: artifact-file
-      - store_artifacts:
-          path: __tests__
-          destination: artifact-file
-      - store_test_results:
-          path: __tests__
-      - run: ./gradlew test
-      - run: ./gradlew connectedAndroidTest
-      
+
       
       
 
