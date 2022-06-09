@@ -24,8 +24,28 @@ jobs:
       - run: emulator -list-avds
       - run: adb start-server
       - run: cd android && ./gradlew assembleRelease --warning-mode=all #builds a release build
-      - run: cd android && ls
-      - run: emulator -avd myavd -no-window -no-audio -no-boot-anim -verbose -no-snapshot -gpu swiftshader_indirect
+      - run: cd android/app && ls
+      - run: cd android && ./gradlew assembleDebugAndroidTest
+      - run:
+          command: |
+            run_with_retry() {
+                MAX_TRIES=<<parameters.max-tries>>
+                n=1
+                until [ $n -gt $MAX_TRIES ]
+                do
+                  echo "Starting test attempt $n"
+                  <<parameters.test-command>> && break
+                  n=$[$n+1]
+                  sleep << parameters.retry-interval >>
+                done
+                if [ $n -gt $MAX_TRIES ]; then
+                  echo "Max tries reached (<< parameters.max-tries >>)"
+                  exit 1
+                fi
+            }
+            run_with_retry
+          name: Run tests with max tries of 2
+      # - run: emulator -avd myavd -no-window -no-audio -no-boot-anim -verbose -no-snapshot -gpu swiftshader_indirect
       # - android/start-emulator-and-run-tests:
       #     run-tests-working-directory: android
       - android/save-gradle-cache:
