@@ -5,22 +5,22 @@ orbs:
   android: circleci/android@2.0.3
 jobs:
   build-and-test:
-    parameters:
-      android-image: 
-          type: executor
-      node-version: 
-          type: string
-      system-image: 
-          type: string
-      avd: 
-          type: string
+    # parameters:
+    #   android-image: 
+    #       type: string
+    #   node-version: 
+    #       type: string
+    #   system-image: 
+    #       type: string
+    #   avd: 
+    #       type: string
     machine:
-      image: <<paramaters.android-image>>
+      image: android:2022.04.1
     steps:
       - checkout
       - node/install:
           install-yarn: false
-          node-version: <<paramaters.node-version>>
+          node-version: 10.9.0
       - restore_cache:
           key: node-cache
       - run: npm install
@@ -28,8 +28,8 @@ jobs:
           key: node-cache
           paths: 
             - node_modules
-      - run: sdkmanager <<paramaters.system-image>>
-      - run: echo "no" | avdmanager --verbose create avd -n <<paramaters.avd>> -k <<paramaters.system-image>>
+      - run: sdkmanager "system-images;android-29;default;x86_64"
+      - run: echo "no" | avdmanager --verbose create avd -n avd1 -k "system-images;android-29;default;x86_64"
       - run: emulator -list-avds
       - run: adb start-server
       - restore_cache:
@@ -73,15 +73,15 @@ jobs:
       - store_artifacts:
           path: android/app/build/outputs/apk
           destination: build
-      - run: emulator -avd <<paramaters.avd>> -no-window -no-audio -no-boot-anim -verbose -no-snapshot -gpu swiftshader_indirect
+      - run: emulator -avd avd1 -no-window -no-audio -no-boot-anim -verbose -no-snapshot -gpu swiftshader_indirect
       
 workflows:
   build-and-test-workflow:
     jobs:
-      - build-and-test:
-         matrix:
-            parameters:
-              android-image: ["android:2022.04.1", "android:2022.01.1", "android:2021.10.1"]
-              node-version: ["10.9.0", "11.9.0", "12.9.1", "13.9.0"]
-              system-image: ["system-images;android-29;default;x86_64", "system-images;android-28;default;x86_64"]
-              avd: ["avd1", "avd2", "avd3"]
+      - build-and-test
+        #  matrix:
+        #     parameters:
+        #       android-image: ["android:2022.04.1", "android:2022.01.1", "android:2021.10.1"]
+        #       node-version: ["10.9.0", "11.9.0", "12.9.1", "13.9.0"]
+        #       system-image: ["system-images;android-29;default;x86_64", "system-images;android-28;default;x86_64"]
+        #       avd: ["avd1", "avd2", "avd3"]
