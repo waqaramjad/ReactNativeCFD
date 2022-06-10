@@ -20,7 +20,7 @@ jobs:
       - checkout
       - node/install:
           install-yarn: false
-          node-version: 10.9.0
+          node-version: 13.9.0
       - restore_cache:
           key: node-cache
       - run: npm install
