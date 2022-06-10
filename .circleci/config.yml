@@ -17,8 +17,8 @@ jobs:
       - node/install:
           install-yarn: false
           node-version: << parameters.node-version >>
-      - restore_cache:
-          key: node-cache
+      # - restore_cache:
+      #     key: node-cache
       - run: npm install
       - save_cache:
           key: node-cache-{{ .BuildNum }}
