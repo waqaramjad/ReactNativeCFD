@@ -74,6 +74,4 @@ jobs:
 workflows:
   build-and-test-workflow:
     jobs:
-      - build-and-test:
-         matrix:
-            
+      - build-and-test
