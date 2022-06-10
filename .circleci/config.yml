@@ -7,7 +7,7 @@ jobs:
   build-and-test:
     parameters:
       android-image: 
-          type: object
+          type: executor
       node-version: 
           type: string
       system-image: 
