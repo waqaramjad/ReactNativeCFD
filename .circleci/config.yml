@@ -20,7 +20,7 @@ jobs:
       - checkout
       - node/install:
           install-yarn: false
-          node-version: 11.9.0
+          node-version: 10.9.0
       - restore_cache:
           key: node-cache
       - run: npm install
@@ -41,7 +41,8 @@ jobs:
           paths: 
             - android/app/build/outputs/apk
       - run:
-          command: emulator -avd avd1 |
+          command: |
+            emulator -avd avd1
             run_with_retry() {
                 MAX_TRIES=2
                 n=1
