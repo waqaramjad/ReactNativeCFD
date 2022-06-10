@@ -5,19 +5,15 @@ orbs:
   android: circleci/android@2.0.3
 jobs:
   build-and-test:
-    parameters:
-      android-image: 
-          default: android:2022.04.1
-          type: string
-      node-version: 
-          default: "ß10.9.0"
-          type: string
-      system-image: 
-          default: "system-images;android-29;default;x86_64"
-          type: string
-      avd: 
-          default: avd1
-          type: string
+    # parameters:
+    #   android-image: 
+    #       type: string
+    #   node-version: 
+    #       type: string
+    #   system-image: 
+    #       type: string
+    #   avd: 
+    #       type: string
     machine:
       image: <<paramaters.android-image>>
     steps:
