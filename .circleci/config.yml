@@ -60,7 +60,9 @@ jobs:
             run_with_retry
           name: Run tests with max tries of 2
       - run: adb devices
-      - run: npx react-native run-android deviceId avd1 && cd android && gradle test && adb devices | grep emulator | cut -f1 | while read line; do adb -s $line emu kill; done
+      - run: 
+          command: npx react-native run-android deviceId avd1 && cd android && gradle test && adb devices | grep emulator | cut -f1 | while read line; do adb -s $line emu kill; done
+          name: Run emulator, test, and kill
       - run: cd android && ./gradlew test
       - run: cd android && ./gradlew connectedAndroidTest
       - run: cd __tests__ && ls
