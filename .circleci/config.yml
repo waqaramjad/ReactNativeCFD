@@ -6,14 +6,10 @@ orbs:
 jobs:
   build-and-test:
     parameters:
-    #   android-image: 
-    #       type: string
       node-version: 
         type: string
       system-image: 
           type: string
-    #   avd: 
-    #       type: string
     machine:
       image: android:2022.04.1
     steps:
@@ -66,8 +62,6 @@ jobs:
       - run: cd android && ./gradlew test
       - run: cd __tests__ && ls
       - run: cd android/app/build && ls
-      # - android/start-emulator-and-run-tests:
-      #     run-tests-working-directory: android
       - store_test_results:
           path: android/app/build/test-results/testDebugUnitTest
       - store_artifacts:
@@ -76,10 +70,7 @@ jobs:
       - store_artifacts:
           path: android/app/build/outputs/apk
           destination: build
-  # run-emulator:
-  #   machine:
-  #     image: android:2022.04.1
-  #   steps: 
+
 
       
 workflows:
@@ -88,7 +79,5 @@ workflows:
       - build-and-test:
           matrix:
             parameters:
-        #       android-image: ["android:2022.04.1", "android:2022.01.1", "android:2021.10.1"]
-               node-version: ["10.9.0", "11.9.0", "12.9.1", "13.9.0", "16.13.0"]
+               node-version: ["13.9.0", "16.13.0"]
                system-image: ["system-images;android-29;default;x86_64", "system-images;android-28;default;x86_64"]
-        #       avd: ["avd1", "avd2", "avd3"]
