@@ -59,7 +59,7 @@ jobs:
             }
             run_with_retry
           name: Run tests with max tries of 2
-      - run: emulator -avd avd1 | cd android && gradle test
+      - run: emulator -avd avd1 | cd android && gradle test | adb kill-server
       - run: cd android && ./gradlew test
       - run: cd android && ./gradlew connectedAndroidTest
       - run: cd __tests__ && ls
