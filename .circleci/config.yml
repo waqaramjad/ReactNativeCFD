@@ -21,7 +21,7 @@ jobs:
           key: node-cache
       - run: npm install
       - save_cache:
-          key: node-cache
+          key: node-cache-{{ .BuildNum }}
           paths: 
             - node_modules
       - run: sdkmanager "<<parameters.system-image>>"
@@ -33,7 +33,7 @@ jobs:
       - run: cd android && ./gradlew assembleRelease --warning-mode=all #builds a release build
       - run: cd android/app/build/outputs/apk && ls
       - save_cache:
-          key: build-cache
+          key: build-cache-{{ .BuildNum }}
           paths: 
             - android/app/build/outputs/apk
       - run:
@@ -79,5 +79,5 @@ workflows:
       - build-and-test:
           matrix:
             parameters:
-               node-version: ["13.9.0", "16.13.0"]
+               node-version: ["12.9.1", "13.9.0", "16.13.0"]
                system-image: ["system-images;android-29;default;x86_64", "system-images;android-28;default;x86_64"]
