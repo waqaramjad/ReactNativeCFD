@@ -64,7 +64,6 @@ jobs:
           command: npx react-native run-android deviceId avd1 && cd android && gradle test && adb devices | grep emulator | cut -f1 | while read line; do adb -s $line emu kill; done
           name: Run emulator, test, and kill
       - run: cd android && ./gradlew test
-      - run: cd android && ./gradlew connectedAndroidTest
       - run: cd __tests__ && ls
       - run: cd android/app/build && ls
       # - android/start-emulator-and-run-tests:
@@ -77,7 +76,11 @@ jobs:
       - store_artifacts:
           path: android/app/build/outputs/apk
           destination: build
-      - run: emulator -avd avd1 -no-window -no-audio -no-boot-anim -verbose -no-snapshot -gpu swiftshader_indirect
+  # run-emulator:
+  #   machine:
+  #     image: android:2022.04.1
+  #   steps: 
+
       
 workflows:
   build-and-test-workflow:
