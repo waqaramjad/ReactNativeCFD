@@ -6,13 +6,13 @@ orbs:
 jobs:
   build-and-test:
     parameters:
-      android-image:
+      - android-image:
         type: string
-      node-version:
+      - node-version:
         type: string
-      system-image:
+      - system-image:
         type: string
-      avd:
+      - avd:
         type: string
     machine:
       image: <<paramaters.android-image>>
