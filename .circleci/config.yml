@@ -41,7 +41,7 @@ jobs:
           paths: 
             - android/app/build/outputs/apk
       - run:
-          command:
+          command: |
             run_with_retry() {
                 MAX_TRIES=2
                 n=1
@@ -58,9 +58,8 @@ jobs:
                 fi
             }
             run_with_retry
-            |
-            emulator -avd avd1
           name: Run tests with max tries of 2
+      - run: emulator -avd avd1 | cd android && gradle test
       - run: cd android && ./gradlew test
       - run: cd android && ./gradlew connectedAndroidTest
       - run: cd __tests__ && ls
