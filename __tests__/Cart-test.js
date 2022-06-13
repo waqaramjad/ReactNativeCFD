@@ -4,7 +4,7 @@ import MenuData from '../data/MenuData';
 
 const cartTests = require('../App');
 
-describe('Cart item test', () => {
+describe('Cart calculation test', () => {
   test('adding water to cart should cost 1.99', () => {
     function testSingleItem() {
       var tempCart = [];
@@ -17,9 +17,6 @@ describe('Cart item test', () => {
     }
     testSingleItem();
   });
-});
-
-describe('Cart calculation test', () => {
   test('adding one of each item should total 42.94', () => {
     function testAllItems() {
       var tempCart = [];
@@ -64,5 +61,28 @@ describe('Cart multiple of one item calculation test', () => {
       ).toEqual(9.95);
     }
     testAllItems();
+  });
+});
+
+describe('Add and removing items to cart', () => {
+  test('add 5 waters then remove 2', () => {
+    var tempCart = [];
+    const remove = jest.fn();
+    function testAddToCart(cartItem) {
+      tempCart = [...tempCart, cartItem];
+      return tempCart;
+    }
+    function removeItem(callback, item) {
+      if (item !== tempCart.some(cartItem => cartItem.title === item)) {
+        callback(item);
+      }
+    }
+    for (let i = 0; i < 5; i++) {
+      testAddToCart(MenuData[0]);
+    }
+    for (i = 0; i < 2; i++) {
+      removeItem(remove, 'Water');
+    }
+    expect(remove).toHaveBeenCalledTimes(2);
   });
 });
