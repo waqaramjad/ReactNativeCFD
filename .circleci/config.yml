@@ -15,7 +15,7 @@ jobs:
     steps:
       - checkout
       - node/install:
-          install-yarn: false
+          install-yarn: true
           node-version: << parameters.node-version >>
       - restore_cache:
           key: node-cache-{{ .BuildNum }}
