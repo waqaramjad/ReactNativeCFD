@@ -38,7 +38,7 @@ const App = () => {
 
   return (
     <Provider>
-      <SafeAreaView style={styles.mainView}>
+      <SafeAreaView style={styles.mainView} accessibilityLabel="testview">
         <StatusBar />
         <ScrollView horizontal={false}>
           <View>
