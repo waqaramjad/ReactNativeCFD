@@ -84,4 +84,10 @@ const styles = StyleSheet.create({
   },
 });
 
+export const testAddToCart = cartItem => {
+  const [cart, setCart] = useState([]);
+  setCart([...cart, cartItem]);
+  return cart;
+};
+
 export default App;

@@ -46,7 +46,7 @@ jobs:
                 fi
             }
             run_with_retry
-          name: Run tests with max tries of 2
+          name: Run gradle tests with max tries of 2
       - run:
           command: |
             run_with_retry() {
@@ -65,7 +65,7 @@ jobs:
                 fi
             }
             run_with_retry
-          name: Run tests with max tries of 2
+          name: Run jest tests with max tries of 2
       - store_test_results:
           path: android/app/build/test-results/testDebugUnitTest
       - store_test_results:
