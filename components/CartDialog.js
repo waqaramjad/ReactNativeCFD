@@ -3,7 +3,7 @@ import {Button, Dialog} from 'react-native-paper';
 import Cart from './Cart';
 import {ScrollView} from 'react-native';
 
-const MyComponent = ({
+const CartDialog = ({
   cart,
   visible,
   makeNotVisible,
@@ -18,7 +18,7 @@ const MyComponent = ({
       <Dialog.Title>Alert</Dialog.Title>
       <ScrollView>
         <Dialog.Content style={{paddingBottom: 0, marginBottom: 0}}>
-          <Cart cart={cart} removeFromCart={removeFromCart} />
+          <Cart cart={cart ? cart : []} removeFromCart={removeFromCart} />
         </Dialog.Content>
         <Dialog.Actions>
           <Button
@@ -40,4 +40,4 @@ const MyComponent = ({
   );
 };
 
-export default MyComponent;
+export default CartDialog;

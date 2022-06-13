@@ -1,33 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="jest tests" tests="6" failures="1" errors="0" time="1.958">
-  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2022-06-13T19:17:48" time="1.106" tests="1">
-    <testcase classname=" App renders correctly" name=" App renders correctly" time="0.152">
-    </testcase>
-  </testsuite>
-  <testsuite name="Cart calculation test" errors="0" failures="1" skipped="0" timestamp="2022-06-13T19:17:48" time="1.194" tests="5">
+<testsuites name="jest tests" tests="10" failures="0" errors="0" time="2.666">
+  <testsuite name="Cart calculation test" errors="0" failures="0" skipped="0" timestamp="2022-06-13T20:23:00" time="1.459" tests="4">
     <testcase classname="Cart calculation test adding water to cart should cost 1.99" name="Cart calculation test adding water to cart should cost 1.99" time="0.002">
     </testcase>
     <testcase classname="Cart calculation test adding one of each item should total 42.94" name="Cart calculation test adding one of each item should total 42.94" time="0">
     </testcase>
     <testcase classname="Cart multiple of one item calculation test adding 5 waters should total 9.95" name="Cart multiple of one item calculation test adding 5 waters should total 9.95" time="0">
     </testcase>
-    <testcase classname="Add and removing items to cart add 5 waters then remove 2" name="Add and removing items to cart add 5 waters then remove 2" time="0.001">
+    <testcase classname="Add and removing items to cart add 5 waters then remove 2" name="Add and removing items to cart add 5 waters then remove 2" time="0">
     </testcase>
-    <testcase classname="Attempt removing item not in cart add 5 waters then remove 1 water and 1 soup" name="Attempt removing item not in cart add 5 waters then remove 1 water and 1 soup" time="0.001">
-      <failure>Error: expect(jest.fn()).toHaveBeenCalledTimes(expected)
-
-Expected number of calls: 1
-Received number of calls: 0
-    at Object.toHaveBeenCalledTimes (/Users/ryanbourdais/repos/ReactNativeCFD/__tests__/Cart-test.js:111:20)
-    at Promise.then.completed (/Users/ryanbourdais/repos/ReactNativeCFD/node_modules/jest-circus/build/utils.js:333:28)
-    at new Promise (&lt;anonymous&gt;)
-    at callAsyncCircusFn (/Users/ryanbourdais/repos/ReactNativeCFD/node_modules/jest-circus/build/utils.js:259:10)
-    at _callCircusTest (/Users/ryanbourdais/repos/ReactNativeCFD/node_modules/jest-circus/build/run.js:277:40)
-    at processTicksAndRejections (node:internal/process/task_queues:95:5)
-    at _runTest (/Users/ryanbourdais/repos/ReactNativeCFD/node_modules/jest-circus/build/run.js:209:3)
-    at _runTestsForDescribeBlock (/Users/ryanbourdais/repos/ReactNativeCFD/node_modules/jest-circus/build/run.js:97:9)
-    at _runTestsForDescribeBlock (/Users/ryanbourdais/repos/ReactNativeCFD/node_modules/jest-circus/build/run.js:91:9)
-    at run (/Users/ryanbourdais/repos/ReactNativeCFD/node_modules/jest-circus/build/run.js:31:3)</failure>
+  </testsuite>
+  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2022-06-13T20:23:00" time="1.491" tests="1">
+    <testcase classname=" renders correctly" name=" renders correctly" time="0.009">
+    </testcase>
+  </testsuite>
+  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2022-06-13T20:23:00" time="1.537" tests="1">
+    <testcase classname=" renders correctly" name=" renders correctly" time="0.061">
+    </testcase>
+  </testsuite>
+  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2022-06-13T20:23:00" time="1.65" tests="1">
+    <testcase classname=" renders correctly" name=" renders correctly" time="0.057">
+    </testcase>
+  </testsuite>
+  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2022-06-13T20:23:00" time="1.665" tests="1">
+    <testcase classname=" renders correctly" name=" renders correctly" time="0.061">
+    </testcase>
+  </testsuite>
+  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2022-06-13T20:23:00" time="1.724" tests="1">
+    <testcase classname=" renders correctly" name=" renders correctly" time="0.134">
+    </testcase>
+  </testsuite>
+  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2022-06-13T20:23:01" time="1.471" tests="1">
+    <testcase classname=" renders correctly" name=" renders correctly" time="0.056">
     </testcase>
   </testsuite>
 </testsuites>

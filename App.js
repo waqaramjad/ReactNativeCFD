@@ -21,6 +21,7 @@ const App = () => {
 
   const addToCart = menuItem => {
     setCart([...cart, menuItem]);
+    console.warn(menuItem);
   };
 
   const emptyCart = () => {

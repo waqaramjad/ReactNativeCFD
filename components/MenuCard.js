@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {Button, Card, Paragraph} from 'react-native-paper';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 
 const styles = StyleSheet.create({
   Title: {
@@ -47,30 +47,40 @@ const styles = StyleSheet.create({
   },
 });
 
-const MenuCard = ({menuItem, addToCart}) => (
-  <Card style={styles.Card}>
-    <Card.Content>
-      <Paragraph style={styles.Title}>
-        {menuItem.title ?? 'menu item'}
-      </Paragraph>
-      <Paragraph style={styles.Cost}>{`$${menuItem.cost ?? '0.00'}`}</Paragraph>
-      <Paragraph style={styles.Description}>{menuItem.description}</Paragraph>
-      <Card.Cover
-        style={styles.Image}
-        source={{uri: menuItem.image} ?? {uri: 'https://picsum.photos/700'}}
-      />
-      <Card.Actions style={styles.Button}>
-        <Button
-          mode="contained"
-          theme={{colors: {primary: '#03DAC6'}}}
-          onPress={() => {
-            addToCart(menuItem);
-          }}>
-          Add to Cart
-        </Button>
-      </Card.Actions>
-    </Card.Content>
-  </Card>
-);
+const MenuCard = ({menuItem, addToCart}) => {
+  if (menuItem !== undefined) {
+    return (
+      <Card style={styles.Card}>
+        <Card.Content>
+          <Paragraph style={styles.Title}>
+            {menuItem.title ?? 'menu item'}
+          </Paragraph>
+          <Paragraph style={styles.Cost}>{`$${
+            menuItem.cost ?? '0.00'
+          }`}</Paragraph>
+          <Paragraph style={styles.Description}>
+            {menuItem.description}
+          </Paragraph>
+          <Card.Cover
+            style={styles.Image}
+            source={{uri: menuItem.image} ?? {uri: 'https://picsum.photos/700'}}
+          />
+          <Card.Actions style={styles.Button}>
+            <Button
+              mode="contained"
+              theme={{colors: {primary: '#03DAC6'}}}
+              onPress={() => {
+                addToCart(menuItem);
+              }}>
+              Add to Cart
+            </Button>
+          </Card.Actions>
+        </Card.Content>
+      </Card>
+    );
+  } else {
+    return <View></View>;
+  }
+};
 
 export default MenuCard;

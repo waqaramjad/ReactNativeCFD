@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {Appbar, Paragraph} from 'react-native-paper';
 import {StyleSheet} from 'react-native';
+import {useEffect} from 'react';
 
 const styles = StyleSheet.create({
   bottom: {
@@ -20,24 +21,30 @@ const styles = StyleSheet.create({
 });
 
 const total = cart => {
-  if (cart.length === 0) {
+  if (cart == undefined || cart == [] || cart == null) {
     return 0;
+  } else {
+    return cart.map(item => item.cost).reduce((prev, curt) => prev + curt);
   }
-
-  return cart.map(item => item.cost).reduce((prev, curt) => prev + curt);
 };
 
-const CartBar = ({cart, emptyCart, makeVisible}) => (
-  <Appbar style={styles.bottom}>
-    <Appbar.Action
-      icon="cart"
-      onPress={() => {
-        makeVisible();
-      }}
-      style={styles.ButtonContainer}
-    />
-    <Paragraph style={styles.Price}>${total(cart).toFixed(2)}</Paragraph>
-  </Appbar>
-);
+const CartBar = ({cart, makeVisible}) => {
+  let tempCart = 0;
+  useEffect(() => {
+    tempCart = cart;
+  });
+  return (
+    <Appbar style={styles.bottom}>
+      <Appbar.Action
+        icon="cart"
+        onPress={() => {
+          makeVisible();
+        }}
+        style={styles.ButtonContainer}
+      />
+      <Paragraph style={styles.Price}>${total(tempCart).toFixed(2)}</Paragraph>
+    </Appbar>
+  );
+};
 
 export default CartBar;
