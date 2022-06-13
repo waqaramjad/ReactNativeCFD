@@ -61,6 +61,8 @@ jobs:
       - run: cd android && ./gradlew test
       - store_test_results:
           path: android/app/build/test-results/testDebugUnitTest
+      - store_test_results:
+          path: android/app/build/test-results/testReleaseUnitTest
       - store_artifacts:
           path: android/app/build/test-results
           destination: artifact-file
