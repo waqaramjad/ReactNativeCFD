@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="jest tests" tests="4" failures="0" errors="0" time="6.289">
-  <testsuite name="Cart item test" errors="0" failures="0" skipped="0" timestamp="2022-06-13T18:25:29" time="1.191" tests="3">
+<testsuites name="jest tests" tests="4" failures="0" errors="0" time="2.62">
+  <testsuite name="Cart item test" errors="0" failures="0" skipped="0" timestamp="2022-06-13T18:31:06" time="1.417" tests="3">
     <testcase classname="Cart item test adding water to cart should cost 1.99" name="Cart item test adding water to cart should cost 1.99" time="0.002">
     </testcase>
     <testcase classname="Cart calculation test adding one of each item should total 42.94" name="Cart calculation test adding one of each item should total 42.94" time="0">
     </testcase>
-    <testcase classname="Cart multiple of one item calculation test adding 5 waters should total 9.95" name="Cart multiple of one item calculation test adding 5 waters should total 9.95" time="0.001">
+    <testcase classname="Cart multiple of one item calculation test adding 5 waters should total 9.95" name="Cart multiple of one item calculation test adding 5 waters should total 9.95" time="0.002">
     </testcase>
   </testsuite>
-  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2022-06-13T18:25:29" time="1.355" tests="1">
-    <testcase classname=" renders correctly" name=" renders correctly" time="0.154">
+  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2022-06-13T18:31:06" time="1.79" tests="1">
+    <testcase classname=" App renders correctly" name=" App renders correctly" time="0.212">
     </testcase>
   </testsuite>
 </testsuites>
