@@ -12,6 +12,7 @@ jobs:
           type: string
     machine:
       image: android:2022.04.1
+    parallelism: 5
     steps:
       - checkout
       - node/install:
