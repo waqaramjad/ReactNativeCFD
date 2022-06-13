@@ -4,7 +4,57 @@ orbs:
   node: circleci/node@5.0.2
   android: circleci/android@2.0.3
 jobs:
-  build-and-test:
+  test:
+    parameters:
+      node-version: 
+        type: string
+      system-image: 
+          type: string
+    machine:
+      image: android:2022.04.1
+    steps:
+      - checkout
+      - node/install:
+          install-yarn: false
+          node-version: << parameters.node-version >>
+      - restore_cache:
+          key: node-cache-{{ .BuildNum }}
+      - run: npm install
+      - save_cache:
+          key: node-cache-{{ .BuildNum }}
+          paths: 
+            - node_modules
+      - run: sdkmanager "<<parameters.system-image>>"
+      - run: echo "no" | avdmanager --verbose create avd -n avd1 -k "<<parameters.system-image>>"
+      - run: adb start-server
+      - run:
+          command: |
+            cd android &&
+            run_with_retry() {
+                MAX_TRIES=2
+                n=1
+                until [ $n -gt $MAX_TRIES ]
+                do
+                  echo "Starting test attempt $n"
+                  ./gradlew test && break
+                  n=$[$n+1]
+                  sleep 5
+                done
+                if [ $n -gt $MAX_TRIES ]; then
+                  echo "Max tries reached (2)"
+                  exit 1
+                fi
+            }
+            run_with_retry
+          name: Run tests with max tries of 2
+      - store_test_results:
+          path: android/app/build/test-results/testDebugUnitTest
+      - store_test_results:
+          path: android/app/build/test-results/testReleaseUnitTest
+      - store_artifacts:
+          path: android/app/build/test-results
+          destination: artifact-file
+  build:
     parameters:
       node-version: 
         type: string
@@ -35,38 +85,9 @@ jobs:
           key: build-cache-{{ .BuildNum }}
           paths: 
             - android/app/build/outputs/apk
-      - run:
-          command: |
-            cd android &&
-            run_with_retry() {
-                MAX_TRIES=2
-                n=1
-                until [ $n -gt $MAX_TRIES ]
-                do
-                  echo "Starting test attempt $n"
-                  ./gradlew test && break
-                  n=$[$n+1]
-                  sleep 5
-                done
-                if [ $n -gt $MAX_TRIES ]; then
-                  echo "Max tries reached (2)"
-                  exit 1
-                fi
-            }
-            run_with_retry
-          name: Run tests with max tries of 2
-      - run: adb devices
       - run: 
           command: npx react-native run-android && cd android && gradle test && adb devices | grep emulator | cut -f1 | while read line; do adb -s $line emu kill; done
           name: Run emulator, test, and kill
-      - run: cd android && ./gradlew test
-      - store_test_results:
-          path: android/app/build/test-results/testDebugUnitTest
-      - store_test_results:
-          path: android/app/build/test-results/testReleaseUnitTest
-      - store_artifacts:
-          path: android/app/build/test-results
-          destination: artifact-file
       - store_artifacts:
           path: android/app/build/outputs/apk
           destination: build
@@ -76,10 +97,18 @@ jobs:
 workflows:
   build-and-test-workflow:
     jobs:
-      - build-and-test:
+      - test:
+         matrix:
+            parameters:
+               node-version: ["12.9.1", "13.9.0", "16.13.0"]
+               system-image: ["system-images;android-29;default;x86_64", "system-images;android-28;default;x86_64", "system-images;android-29;default;x86", "system-images;android-28;default;x86"]
+      - build:
           matrix:
             parameters:
                node-version: ["12.9.1", "13.9.0", "16.13.0"]
-               #"10.9.0", "11.9.0" 
-               #10.9 and 11.9 always break on gradlew aR
                system-image: ["system-images;android-29;default;x86_64", "system-images;android-28;default;x86_64", "system-images;android-29;default;x86", "system-images;android-28;default;x86"]
+          filters:
+            branches:
+              only: master
+          requires:
+            - test
