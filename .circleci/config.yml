@@ -27,45 +27,48 @@ jobs:
       - run: sdkmanager "<<parameters.system-image>>"
       - run: echo "no" | avdmanager --verbose create avd -n avd1 -k "<<parameters.system-image>>"
       - run: adb start-server
-      - run:
-          command: |
-            cd android &&
-            run_with_retry() {
-                MAX_TRIES=2
-                n=1
-                until [ $n -gt $MAX_TRIES ]
-                do
-                  echo "Starting test attempt $n"
-                  ./gradlew test && break
-                  n=$[$n+1]
-                  sleep 5
-                done
-                if [ $n -gt $MAX_TRIES ]; then
-                  echo "Max tries reached (2)"
-                  exit 1
-                fi
-            }
-            run_with_retry
-          name: Run gradle tests with max tries of 2
-      - run:
-          command: |
-            run_with_retry() {
-                MAX_TRIES=2
-                n=1
-                until [ $n -gt $MAX_TRIES ]
-                do
-                  echo "Starting test attempt $n"
-                  yarn test
-                  n=$[$n+1]
-                  sleep 5
-                done
-                if [ $n -gt $MAX_TRIES ]; then
-                  echo "Max tries reached (2)"
-                  exit 1
-                fi
-            }
-            run_with_retry
-          name: Run jest tests with max tries of 2
+      # - run:
+      #     command: |
+      #       cd android &&
+      #       run_with_retry() {
+      #           MAX_TRIES=2
+      #           n=1
+      #           until [ $n -gt $MAX_TRIES ]
+      #           do
+      #             echo "Starting test attempt $n"
+      #             ./gradlew test && break
+      #             n=$[$n+1]
+      #             sleep 5
+      #           done
+      #           if [ $n -gt $MAX_TRIES ]; then
+      #             echo "Max tries reached (2)"
+      #             exit 1
+      #           fi
+      #       }
+      #       run_with_retry
+      #     name: Run gradle tests with max tries of 2
+      # - run:
+      #     command: |
+      #       run_with_retry() {
+      #           MAX_TRIES=2
+      #           n=1
+      #           until [ $n -gt $MAX_TRIES ]
+      #           do
+      #             echo "Starting test attempt $n"
+      #             yarn test
+      #             n=$[$n+1]
+      #             sleep 5
+      #           done
+      #           if [ $n -gt $MAX_TRIES ]; then
+      #             echo "Max tries reached (2)"
+      #             exit 1
+      #           fi
+      #       }
+      #       run_with_retry
+      #     name: Run jest tests with max tries of 2
+      - run: 
+          command: npx react-native run-android && yarn test && cd android && gradle test && adb devices | grep emulator | cut -f1 | while read line; do adb -s $line emu kill; done
+          name: Run emulator, test, and kill
       - store_test_results:
           path: android/app/build/test-results/testDebugUnitTest
       - store_test_results:
@@ -106,9 +109,6 @@ jobs:
           key: build-cache-{{ .BuildNum }}
           paths: 
             - android/app/build/outputs/apk
-      - run: 
-          command: npx react-native run-android && cd android && gradle test && adb devices | grep emulator | cut -f1 | while read line; do adb -s $line emu kill; done
-          name: Run emulator, test, and kill
       - store_artifacts:
           path: android/app/build/outputs/apk
           destination: build
