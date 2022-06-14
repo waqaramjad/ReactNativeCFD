@@ -76,6 +76,7 @@ jobs:
       - node/install:
           install-yarn: false
           node-version: "16.13.0"
+      - run: fastlane run upload_to_play_store track:"internal"
   deploy-alpha:
     machine:
       image: android:2022.04.1
@@ -84,6 +85,7 @@ jobs:
       - node/install:
           install-yarn: false
           node-version: "16.13.0"
+      - run: fastlane run upload_to_play_store track:"alpha"
   deploy-beta:
     machine:
       image: android:2022.04.1
@@ -92,6 +94,7 @@ jobs:
       - node/install:
           install-yarn: false
           node-version: "16.13.0"
+      - run: fastlane run upload_to_play_store track:"beta"
   deploy-release:
     machine:
       image: android:2022.04.1
@@ -100,6 +103,7 @@ jobs:
       - node/install:
           install-yarn: false
           node-version: "16.13.0"
+      - run: fastlane run upload_to_play_store 
 
 
       
@@ -138,7 +142,7 @@ workflows:
           # requires:
           #   - build
               #ex tag: beta-1.0.0
-      - deploy-release:
+      - deploy-production:
           filters:
             tags:
               only: /^release-.*/
