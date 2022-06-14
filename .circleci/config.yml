@@ -68,6 +68,38 @@ jobs:
       - store_artifacts:
           path: android/app/build/outputs/bundle
           destination: build
+  deploy-internal:
+    machine:
+      image: android:2022.04.1
+    steps:
+      - checkout
+      - node/install:
+          install-yarn: false
+          node-version: "16.13.0"
+  deploy-alpha:
+    machine:
+      image: android:2022.04.1
+    steps:
+      - checkout
+      - node/install:
+          install-yarn: false
+          node-version: "16.13.0"
+  deploy-beta:
+    machine:
+      image: android:2022.04.1
+    steps:
+      - checkout
+      - node/install:
+          install-yarn: false
+          node-version: "16.13.0"
+  deploy-release:
+    machine:
+      image: android:2022.04.1
+    steps:
+      - checkout
+      - node/install:
+          install-yarn: false
+          node-version: "16.13.0"
 
 
       
@@ -80,8 +112,28 @@ workflows:
                node-version: ["12.9.1", "13.9.0", "16.13.0"]
                system-image: ["system-images;android-29;default;x86_64", "system-images;android-28;default;x86_64", "system-images;android-29;default;x86", "system-images;android-28;default;x86"]
       - build:
-          # filters:
-          #   branches:
-          #     only: master
+          filters:
+            branches:
+              only: master
           requires:
             - test
+      - deploy-internal:
+          filters:
+            tags:
+              only: internal
+              #ex tag: internal-1.0.0
+      - deploy-alpha:
+          filters:
+            tags:
+              only: alpha
+              #ex tag: alpha-1.0.0
+      - deploy-beta:
+          filters:
+            tags:
+              only: beta
+              #ex tag: beta-1.0.0
+      - deploy-release:
+          filters:
+            tags:
+              only: release
+              #ex tag: release-1.0.0
