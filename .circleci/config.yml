@@ -121,27 +121,27 @@ workflows:
           filters:
             tags:
               only: internal
-          requires:
-            - build
+          # requires:
+          #   - build
               #ex tag: internal-1.0.0
       - deploy-alpha:
           filters:
             tags:
               only: alpha
-          requires:
-            - build
+          # requires:
+          #   - build
               #ex tag: alpha-1.0.0
       - deploy-beta:
           filters:
             tags:
               only: beta
-          requires:
-            - build
+          # requires:
+          #   - build
               #ex tag: beta-1.0.0
       - deploy-release:
           filters:
             tags:
               only: release
-          requires:
-            - build
+          # requires:
+          #   - build
               #ex tag: release-1.0.0
