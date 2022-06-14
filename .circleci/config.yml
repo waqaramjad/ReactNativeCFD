@@ -87,8 +87,8 @@ workflows:
       - build:
           matrix:
             parameters:
-               node-version: ["12.9.1", "13.9.0", "16.13.0"]
-               system-image: ["system-images;android-29;default;x86_64", "system-images;android-28;default;x86_64", "system-images;android-29;default;x86", "system-images;android-28;default;x86"]
+               node-version: ["16.13.0"]
+               system-image: ["system-images;android-29;default;x86_64"]
           # filters:
           #   branches:
           #     only: master
