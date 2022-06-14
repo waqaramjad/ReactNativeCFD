@@ -32,6 +32,7 @@ const CartBar = ({cart, makeVisible}) => {
   let tempCart = 0;
   useEffect(() => {
     tempCart = cart;
+    console.warn(cart);
   });
   return (
     <Appbar style={styles.bottom}>
