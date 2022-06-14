@@ -64,9 +64,9 @@ jobs:
       - save_cache:
           key: build-cache-{{ .BuildNum }}
           paths: 
-            - android/app/build/outputs/apk
+            - android/app/build/outputs/bundle
       - store_artifacts:
-          path: android/app/build/outputs/apk
+          path: android/app/build/outputs/bundle
           destination: build
 
 
