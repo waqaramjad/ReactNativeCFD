@@ -120,28 +120,28 @@ workflows:
       - deploy-internal:
           filters:
             tags:
-              only: internal
+              only: /^internal-
           # requires:
           #   - build
               #ex tag: internal-1.0.0
       - deploy-alpha:
           filters:
             tags:
-              only: alpha
+              only: /^alpha-
           # requires:
           #   - build
               #ex tag: alpha-1.0.0
       - deploy-beta:
           filters:
             tags:
-              only: beta
+              only: /^beta-
           # requires:
           #   - build
               #ex tag: beta-1.0.0
       - deploy-release:
           filters:
             tags:
-              only: release
+              only: /^release-
           # requires:
           #   - build
               #ex tag: release-1.0.0
