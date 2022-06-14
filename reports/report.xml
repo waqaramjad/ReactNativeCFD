@@ -1,11 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="jest tests" tests="2" failures="0" errors="0" time="1.55">
-  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2022-06-13T16:37:43" time="1.126" tests="1">
-    <testcase classname=" renders correctly" name=" renders correctly" time="0.156">
+<testsuites name="jest tests" tests="10" failures="0" errors="0" time="2.666">
+  <testsuite name="Cart calculation test" errors="0" failures="0" skipped="0" timestamp="2022-06-13T20:23:00" time="1.459" tests="4">
+    <testcase classname="Cart calculation test adding water to cart should cost 1.99" name="Cart calculation test adding water to cart should cost 1.99" time="0.002">
+    </testcase>
+    <testcase classname="Cart calculation test adding one of each item should total 42.94" name="Cart calculation test adding one of each item should total 42.94" time="0">
+    </testcase>
+    <testcase classname="Cart multiple of one item calculation test adding 5 waters should total 9.95" name="Cart multiple of one item calculation test adding 5 waters should total 9.95" time="0">
+    </testcase>
+    <testcase classname="Add and removing items to cart add 5 waters then remove 2" name="Add and removing items to cart add 5 waters then remove 2" time="0">
     </testcase>
   </testsuite>
-  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2022-06-13T16:37:43" time="1.126" tests="1">
-    <testcase classname=" renders correctly" name=" renders correctly" time="0.143">
+  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2022-06-13T20:23:00" time="1.491" tests="1">
+    <testcase classname=" renders correctly" name=" renders correctly" time="0.009">
+    </testcase>
+  </testsuite>
+  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2022-06-13T20:23:00" time="1.537" tests="1">
+    <testcase classname=" renders correctly" name=" renders correctly" time="0.061">
+    </testcase>
+  </testsuite>
+  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2022-06-13T20:23:00" time="1.65" tests="1">
+    <testcase classname=" renders correctly" name=" renders correctly" time="0.057">
+    </testcase>
+  </testsuite>
+  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2022-06-13T20:23:00" time="1.665" tests="1">
+    <testcase classname=" renders correctly" name=" renders correctly" time="0.061">
+    </testcase>
+  </testsuite>
+  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2022-06-13T20:23:00" time="1.724" tests="1">
+    <testcase classname=" renders correctly" name=" renders correctly" time="0.134">
+    </testcase>
+  </testsuite>
+  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2022-06-13T20:23:01" time="1.471" tests="1">
+    <testcase classname=" renders correctly" name=" renders correctly" time="0.056">
     </testcase>
   </testsuite>
 </testsuites>

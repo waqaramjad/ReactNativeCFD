@@ -15,7 +15,7 @@ jobs:
     steps:
       - checkout
       - node/install:
-          install-yarn: false
+          install-yarn: true
           node-version: << parameters.node-version >>
       - restore_cache:
           key: node-cache-{{ .BuildNum }}
@@ -27,54 +27,15 @@ jobs:
       - run: sdkmanager "<<parameters.system-image>>"
       - run: echo "no" | avdmanager --verbose create avd -n avd1 -k "<<parameters.system-image>>"
       - run: adb start-server
-      - run:
-          command: |
-            cd android &&
-            run_with_retry() {
-                MAX_TRIES=2
-                n=1
-                until [ $n -gt $MAX_TRIES ]
-                do
-                  echo "Starting test attempt $n"
-                  ./gradlew test && break
-                  n=$[$n+1]
-                  sleep 5
-                done
-                if [ $n -gt $MAX_TRIES ]; then
-                  echo "Max tries reached (2)"
-                  exit 1
-                fi
-            }
-            run_with_retry
-          name: Run tests with max tries of 2
-      - run:
-          command: |
-            run_with_retry() {
-                MAX_TRIES=2
-                n=1
-                until [ $n -gt $MAX_TRIES ]
-                do
-                  echo "Starting test attempt $n"
-                  yarn test
-                  n=$[$n+1]
-                  sleep 5
-                done
-                if [ $n -gt $MAX_TRIES ]; then
-                  echo "Max tries reached (2)"
-                  exit 1
-                fi
-            }
-            run_with_retry
-          name: Run tests with max tries of 2
+      - run: 
+          command: npx react-native run-android && yarn test && cd android && gradle test && adb devices | grep emulator | cut -f1 | while read line; do adb -s $line emu kill; done
+          name: Run emulator, test, and kill
       - store_test_results:
           path: android/app/build/test-results/testDebugUnitTest
       - store_test_results:
           path: android/app/build/test-results/testReleaseUnitTest
       - store_test_results:
           path: reports
-      - store_artifacts:
-          path: android/app/build/test-results
-          destination: artifact-file
   build:
     parameters:
       node-version: 
@@ -101,14 +62,14 @@ jobs:
       - run: adb start-server
       - restore_cache:
           key: build-cache
+      - run: 
+          command: react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/
+          name: bundle android app
       - run: cd android && ./gradlew assembleRelease
       - save_cache:
           key: build-cache-{{ .BuildNum }}
           paths: 
             - android/app/build/outputs/apk
-      - run: 
-          command: npx react-native run-android && cd android && gradle test && adb devices | grep emulator | cut -f1 | while read line; do adb -s $line emu kill; done
-          name: Run emulator, test, and kill
       - store_artifacts:
           path: android/app/build/outputs/apk
           destination: build

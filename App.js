@@ -21,6 +21,7 @@ const App = () => {
 
   const addToCart = menuItem => {
     setCart([...cart, menuItem]);
+    console.warn(menuItem);
   };
 
   const emptyCart = () => {
@@ -38,7 +39,7 @@ const App = () => {
 
   return (
     <Provider>
-      <SafeAreaView style={styles.mainView}>
+      <SafeAreaView style={styles.mainView} accessibilityLabel="testview">
         <StatusBar />
         <ScrollView horizontal={false}>
           <View>
@@ -83,5 +84,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#000000',
   },
 });
+
+export const testAddToCart = cartItem => {
+  const [cart, setCart] = useState([]);
+  setCart([...cart, cartItem]);
+  return cart;
+};
 
 export default App;
