@@ -57,6 +57,7 @@ jobs:
       - run: adb start-server
       - restore_cache:
           key: build-cache
+      - run: rm -rf android/app/src/main/res/drawable-*
       # - run: 
       #     command: npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/
       #     name: bundle android app
