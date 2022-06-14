@@ -95,7 +95,7 @@ jobs:
           install-yarn: false
           node-version: "16.13.0"
       - run: fastlane run upload_to_play_store track:"beta"
-  deploy-release:
+  deploy-production:
     machine:
       image: android:2022.04.1
     steps:
