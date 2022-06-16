@@ -24,7 +24,7 @@ jobs:
           key: node-cache-{{ .BuildNum }}
           paths: 
             - node_modules
-      - android/run-ui-tests:
+      - android/run-tests:
           matrix:
             parameters:
               system-image:
