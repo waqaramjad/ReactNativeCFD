@@ -25,7 +25,11 @@ jobs:
           paths: 
             - node_modules
       - android/run-ui-tests:
-          system-image: "<<parameters.system-image>>"
+          matrix:
+            parameters:
+              system-image:
+                - system-images;android-30;default;x86_64
+                - system-images;android-31;default;x86_64
       - run: sdkmanager "<<parameters.system-image>>"
       - run: echo "no" | avdmanager --verbose create avd -n avd1 -k "<<parameters.system-image>>"
       - run: adb start-server
