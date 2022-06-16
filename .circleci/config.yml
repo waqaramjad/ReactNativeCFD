@@ -24,7 +24,7 @@ jobs:
           key: node-cache-{{ .BuildNum }}
           paths: 
             - node_modules
-      - android/run-ui-tests:
+      - android/jobs/run-ui-tests:
           system-image: "<<parameters.system-image>>"
       - run: sdkmanager "<<parameters.system-image>>"
       - run: echo "no" | avdmanager --verbose create avd -n avd1 -k "<<parameters.system-image>>"
