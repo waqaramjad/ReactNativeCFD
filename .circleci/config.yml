@@ -24,9 +24,7 @@ jobs:
           key: node-cache-{{ .BuildNum }}
           paths: 
             - node_modules
-      - android/jobs/run-ui-tests:
-          system-image: "<<parameters.system-image>>"
-      - run: sdkmanager "<<parameters.system-image>>"
+      - run: sdkmanager <<parameters.system-image>>
       - run: echo "no" | avdmanager --verbose create avd -n avd1 -k "<<parameters.system-image>>"
       - run: adb start-server
       - run: 
@@ -116,7 +114,7 @@ workflows:
          matrix:
             parameters:
                node-version: ["12.9.1", "13.9.0", "16.13.0"]
-               system-image: ["system-images;android-29;default;x86_64", "system-images;android-28;default;x86_64", "system-images;android-29;default;x86", "system-images;android-28;default;x86"]
+               system-image: [system-images;android-29;default;x86_64, "system-images;android-28;default;x86_64", "system-images;android-29;default;x86", "system-images;android-28;default;x86"]
       - build:
           filters:
             branches:
