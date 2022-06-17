@@ -17,6 +17,7 @@ jobs:
       - node/install:
           install-yarn: true
           node-version: << parameters.node-version >>
+      - run: update-java-alternatives --list
       - restore_cache:
           key: node-cache-{{ .BuildNum }}
       - run: npm install
