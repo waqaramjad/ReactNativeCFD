@@ -23,11 +23,11 @@ jobs:
               echo "export PATH=$JAVA_HOME/bin:$PATH" >>~/.bashrc
             fi
           name: change OpenJDK version
-      - run: echo | sudo update-alternatives --config java 
+      - run: echo | sudo update-alternatives --config java | echo 2
       - run:
           command: java -version && echo $JAVA_HOME
           name: check for correctness
-      - run: echo | sudo update-alternatives --config java 
+      - run: echo | sudo update-alternatives --config java | echo
       - run:
           command: java -version && echo $JAVA_HOME
           name: check for correctness
