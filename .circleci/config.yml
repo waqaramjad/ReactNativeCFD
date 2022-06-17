@@ -17,7 +17,8 @@ jobs:
       - node/install:
           install-yarn: true
           node-version: << parameters.node-version >>
-      - run: update-java-alternatives --list
+      # - run: update-java-alternatives --list
+      - run:  sudo update-java-alternatives --set /usr/lib/jvm/java-1.8.0-openjdk-amd64
       - restore_cache:
           key: node-cache-{{ .BuildNum }}
       - run: npm install
