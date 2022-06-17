@@ -25,7 +25,7 @@ jobs:
 
             fi
           name: change OpenJDK version
-      - run: sudo update-alternatives --config java
+      - run: echo 2 | sudo update-alternatives --config java
       - run:
           command: java -version
           name: check for correctness
