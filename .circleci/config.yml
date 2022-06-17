@@ -9,6 +9,9 @@ jobs:
       xcode: 13.4.0
     steps:
       - checkout
+      - node/install:
+          install-yarn: true
+          node-version: 16.13.0
       - run: 
           command: cd ios && yarn test
           name: test iOS
