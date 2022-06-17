@@ -20,8 +20,8 @@ jobs:
       - run:
           command: | 
             JAVA_VER=$(java -version 2>&1 | head -1 | cut -d'"' -f2 | sed '/^1\./s///' | cut -d'.' -f1) && echo $JAVA_VER
-            if [ $JAVA_VER != 18 ]; then
-              sudo apt install openjdk-18-jdk
+            if [ $JAVA_VER != 17 ]; then
+              sudo apt install openjdk-17-jdk
               echo 2 | sudo update-alternatives --config java
             fi
           name: change OpenJDK version
