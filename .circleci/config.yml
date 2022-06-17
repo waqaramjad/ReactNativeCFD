@@ -23,6 +23,7 @@ jobs:
               echo "export PATH=$JAVA_HOME/bin:$PATH" >>~/.bashrc
             fi
           name: change OpenJDK version
+      - run: sudo update-java-alternatives --set java-1.8.0-openjdk-amd64
       - run:
           command: java -version && echo $JAVA_HOME
           name: check for correctness
