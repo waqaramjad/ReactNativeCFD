@@ -16,6 +16,7 @@ jobs:
       #     command: cd ios && yarn test
       #     name: test iOS
       - run:  cd ios && xcodebuild -list -project ReactNativeCFD.xcodeproj
+      - run: cd ios &&  xcodebuild -target ReactNativeCFD build && ls
 
   test:
     parameters:
