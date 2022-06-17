@@ -7,15 +7,12 @@ orbs:
 jobs:
   ios-test:
     macos:
-      xcode: 13.4.0
+      xcode: 13.1.0
     steps:
       - checkout
       - node/install:
           install-yarn: true
           node-version: 16.13.0
-      - macos/switch-ruby:
-          version: 2.7.4
-      - run: gem install bundler:2.2.27
       # - run: 
       #     command: cd ios && yarn test
       #     name: test iOS
