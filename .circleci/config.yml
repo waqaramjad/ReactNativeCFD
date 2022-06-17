@@ -4,6 +4,16 @@ orbs:
   node: circleci/node@5.0.2
   android: circleci/android@2.0.3
 jobs:
+  ios-test:
+    macos:
+      xcode: 13.4.0
+    steps:
+      - checkout
+      - run: 
+          command: cd ios && yarn test
+          name: test iOS
+      - run:  xcodebuild -list -project ReactNativeCFD.xcodeproj
+
   test:
     parameters:
       node-version: 
@@ -110,11 +120,15 @@ jobs:
 workflows:
   build-and-test-workflow:
     jobs:
+      - ios-test
       - test:
-         matrix:
+          matrix:
             parameters:
                node-version: ["12.9.1", "13.9.0", "16.13.0"]
                system-image: [system-images;android-29;default;x86_64, "system-images;android-28;default;x86_64", "system-images;android-29;default;x86", "system-images;android-28;default;x86"]
+          filters:
+            branches:
+              only: master
       - build:
           filters:
             branches:
