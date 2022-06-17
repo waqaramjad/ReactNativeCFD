@@ -24,7 +24,7 @@ jobs:
             fi
           name: change OpenJDK version
       - run: echo | sudo update-alternatives --config java
-      - run: sudo update-java-alternatives --set java-8-oracle
+      - run: sudo update-java-alternatives --set java-8-openjdk-amd64
       - run:
           command: java -version && echo $JAVA_HOME
           name: check for correctness
