@@ -25,6 +25,7 @@ jobs:
       - run:
           command: java -version && echo $JAVA_HOME
           name: check for correctness
+      - run: /usr/lib/jvm && ls
       - node/install:
           install-yarn: true
           node-version: << parameters.node-version >>
