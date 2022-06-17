@@ -21,10 +21,10 @@ jobs:
           command: | 
             if ["$JAVA_VER" != "8"]; then
               sudo apt install openjdk-8-jdk
-              sudo update-alternatives --config-java
+              sudo update-alternatives --config java
             fi
           name: change OpenJDK version
-      - run: sudo update-alternatives --config-java
+      - run: sudo update-alternatives --config java
       - run:
           command: java -version
           name: check for correctness
