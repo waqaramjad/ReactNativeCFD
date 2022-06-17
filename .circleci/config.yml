@@ -15,19 +15,15 @@ jobs:
     steps:
       - checkout
       - run:
-          command: JAVA_VER=$(java -version 2>&1 | head -1 | cut -d'"' -f2 | sed '/^1\./s///' | cut -d'.' -f1) && echo $JAVA_VER
-          name: Parses the java version into an integer
-      - run:
           command: | 
             JAVA_VER=$(java -version 2>&1 | head -1 | cut -d'"' -f2 | sed '/^1\./s///' | cut -d'.' -f1) && echo $JAVA_VER
             if [ $JAVA_VER != 17 ]; then
-              sudo apt install openjdk-17-jdk
+              sudo apt install openjdk-16-jdk
               echo 2 | sudo update-alternatives --config java
             fi
           name: change OpenJDK version
-      - run: echo 2 | sudo update-alternatives --config java
       - run:
-          command: java -version
+          command: java -version && echo %JAVA_HOME%
           name: check for correctness
       - node/install:
           install-yarn: true
