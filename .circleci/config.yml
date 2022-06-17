@@ -10,8 +10,6 @@ jobs:
         type: string
       system-image: 
           type: string
-      java-version:
-          type: string
     machine:
       image: android:2022.04.1
     steps:
@@ -21,9 +19,9 @@ jobs:
           name: Parses the java version into an integer
       - run:
           command: | 
-            if [$JAVA_VER != 1.<<parameters.java-version>>.0]; then
-              sudo apt install openjdk-<<parameters.java-version>>-jdk
-              sudo update-java-alternatives --set /usr/lib/jvm/java-<<parameters.java-version>>-openjdk-amd64
+            if [$JAVA_VER != 8]; then
+              sudo apt install openjdk-8-jdk
+              sudo update-java-alternatives --set /usr/lib/jvm/java-8-openjdk-amd64
           name: change OpenJDK version
       - run:
           command: java -version
@@ -97,8 +95,7 @@ workflows:
          matrix:
             parameters:
                node-version: ["12.9.1", "13.9.0", "16.13.0"]
-               system-image: ["system-images;android-29;default;x86_64", "system-images;android-28;default;x86_64", "system-images;android-29;default;x86", "system-images;android-28;default;x86"]\
-               java-version: 11
+               system-image: ["system-images;android-29;default;x86_64", "system-images;android-28;default;x86_64", "system-images;android-29;default;x86", "system-images;android-28;default;x86"]
       - build:
           matrix:
             parameters:
