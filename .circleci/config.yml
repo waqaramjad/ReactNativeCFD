@@ -3,21 +3,25 @@ version: 2.1
 orbs: 
   node: circleci/node@5.0.2
   android: circleci/android@2.0.3
+  macos: circleci/macos@2.2.0
 jobs:
   ios-test:
     macos:
-      xcode: 13.1.0
+      xcode: 13.4.0
     steps:
       - checkout
       - node/install:
           install-yarn: true
           node-version: 16.13.0
+      - macos/switch-ruby:
+          version: 2.7.4
       # - run: 
       #     command: cd ios && yarn test
       #     name: test iOS
       # - run:  cd ios && xcodebuild -list -project ReactNativeCFD.xcodeproj
       # - run: cd ios &&  xcodebuild -target ReactNativeCFD build && ls
       - run: bundle install
+      - run: bundle exec fastlane adhoc
   test:
     parameters:
       node-version: 
@@ -139,31 +143,31 @@ workflows:
               only: master
           requires:
             - test
-      - deploy-internal:
-          filters:
-            tags:
-              only: /^internal-.*/
-          # requires:
-          #   - build
-              #ex tag: internal-1.0.0
-      - deploy-alpha:
-          filters:
-            tags:
-              only: /^alpha-.*/
-          # requires:
-          #   - build
-              #ex tag: alpha-1.0.0
-      - deploy-beta:
-          filters:
-            tags:
-              only: /^beta-.*/
-          # requires:
-          #   - build
-              #ex tag: beta-1.0.0
-      - deploy-production:
-          filters:
-            tags:
-              only: /^release-.*/
-          # requires:
-          #   - build
-              #ex tag: release-1.0.0
+      # - deploy-internal:
+      #     filters:
+      #       tags:
+      #         only: /^internal-.*/
+      #     # requires:
+      #     #   - build
+      #         #ex tag: internal-1.0.0
+      # - deploy-alpha:
+      #     filters:
+      #       tags:
+      #         only: /^alpha-.*/
+      #     # requires:
+      #     #   - build
+      #         #ex tag: alpha-1.0.0
+      # - deploy-beta:
+      #     filters:
+      #       tags:
+      #         only: /^beta-.*/
+      #     # requires:
+      #     #   - build
+      #         #ex tag: beta-1.0.0
+      # - deploy-production:
+      #     filters:
+      #       tags:
+      #         only: /^release-.*/
+      #     # requires:
+      #     #   - build
+      #         #ex tag: release-1.0.0
