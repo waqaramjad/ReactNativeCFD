@@ -18,6 +18,7 @@ jobs:
           install-yarn: true
           node-version: << parameters.node-version >>
       - run: java -version
+      - run: sudo update-java-alternatives --set /usr/lib/jvm/java-1.8.0-openjdk-amd64
       - run: JAVA_VER=$(java -version 2>&1 | sed -n ';s/.* version "\(.*\)\.\(.*\)\..*".*/\1\2/p;') && echo $JAVA_VER
       - restore_cache:
           key: node-cache-{{ .BuildNum }}
