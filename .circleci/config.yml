@@ -19,7 +19,7 @@ jobs:
       # - run:  cd ios && xcodebuild -list -project ReactNativeCFD.xcodeproj
       # - run: cd ios &&  xcodebuild -target ReactNativeCFD build && ls
       - run: bundle install
-      - run: pod deintegrate  --project-directory=ios
+      - run: cd ios/ReactNativeCFD.xcodeproj && pod deintegrate
       - run: pod update
       - run: cd ios &&  xcodebuild -target ReactNativeCFD
       # - run: bundle exec fastlane adhoc
