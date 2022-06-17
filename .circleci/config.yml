@@ -14,14 +14,21 @@ jobs:
       image: android:2022.04.1
     steps:
       - checkout
+      - run:
+        command: JAVA_VER=$(java -version 2>&1 | head -1 | cut -d'"' -f2 | sed '/^1\./s///' | cut -d'.' -f1) && echo $JAVA_VER
+        name: Parses the java version into an integer
+      - run:
+        command: | 
+          if [$JAVA_VER != 1.<<parameters.java-version>>.0]; then
+            sudo apt install openjdk-<<parameters.java-version>>-jdk
+            sudo update-java-alternatives --set /usr/lib/jvm/java-<<parameters.java-version>>-openjdk-amd64
+        name: change OpenJDK version
+      - run:
+        command: java -version
+        name: check for correctness
       - node/install:
           install-yarn: true
           node-version: << parameters.node-version >>
-      - run: java -version
-      - run: JAVA_VER=$(java -version 2>&1 | head -1 | cut -d'"' -f2 | sed '/^1\./s///' | cut -d'.' -f1) && echo $JAVA_VER
-      - run: sudo update-java-alternatives --set /usr/lib/jvm/java-1.8.0-openjdk-amd64
-      - run: JAVA_VER=$(java -version 2>&1 | head -1 | cut -d'"' -f2 | sed '/^1\./s///' | cut -d'.' -f1) && echo $JAVA_VER
-      - run: java -version
       - restore_cache:
           key: node-cache-{{ .BuildNum }}
       - run: npm install
