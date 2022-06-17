@@ -23,7 +23,7 @@ jobs:
             fi
           name: change OpenJDK version
       - run:
-          command: java -version && echo %JAVA_HOME%
+          command: java -version && echo $JAVA_HOME
           name: check for correctness
       - node/install:
           install-yarn: true
