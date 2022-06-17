@@ -19,7 +19,7 @@ jobs:
           name: Parses the java version into an integer
       - run:
           command: | 
-            if [$JAVA_VER != 8]; then
+            if ["$JAVA_VER" != "8"]; then
               sudo apt install openjdk-8-jdk
               sudo update-alternatives --config-java
             fi
