@@ -18,7 +18,7 @@ jobs:
           command: | 
             JAVA_VER=$(java -version 2>&1 | head -1 | cut -d'"' -f2 | sed '/^1\./s///' | cut -d'.' -f1) && echo $JAVA_VER
             if [ $JAVA_VER != 17 ]; then
-              sudo apt install openjdk-16-jdk
+              sudo apt install openjdk-8-jdk
               echo "export JAVA_HOME=/usr/lib/jvm/java-16-openjdk-amd64" >>~/.bashrc
               echo "export PATH=$JAVA_HOME/bin:$PATH" >>~/.bashrc
             fi
