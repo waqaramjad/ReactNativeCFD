@@ -73,8 +73,6 @@ jobs:
       - store_artifacts:
           path: android/app/build/outputs/apk
           destination: build
-
-
       
 workflows:
   build-and-test-workflow:
