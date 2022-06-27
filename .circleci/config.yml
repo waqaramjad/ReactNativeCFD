@@ -28,6 +28,10 @@ jobs:
       - run: echo "no" | avdmanager --verbose create avd -n avd1 -k "<<parameters.system-image>>"
       - run: adb start-server
       - run: 
+          command: npx react-native start
+          background: yes
+          name: run emulator
+      - run: 
           command: npx react-native run-android && yarn test && cd android && gradle test && adb devices | grep emulator | cut -f1 | while read line; do adb -s $line emu kill; done
           name: Run emulator, test, and kill
       - store_test_results:
@@ -62,9 +66,7 @@ jobs:
       - run: adb start-server
       - restore_cache:
           key: build-cache
-      - run: 
-          command: react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/
-          name: bundle android app
+      - run: rm -rf android/app/build/generated/res/react/release
       - run: cd android && ./gradlew assembleRelease
       - save_cache:
           key: build-cache-{{ .BuildNum }}
@@ -73,8 +75,6 @@ jobs:
       - store_artifacts:
           path: android/app/build/outputs/apk
           destination: build
-
-
       
 workflows:
   build-and-test-workflow:
