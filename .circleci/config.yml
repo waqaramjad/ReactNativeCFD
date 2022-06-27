@@ -19,7 +19,7 @@ jobs:
           node-version: << parameters.node-version >>
       - restore_cache:
           key: node-cache-{{ .BuildNum }}
-      - run: yarn install
+      - run: npm install --force
       - save_cache:
           key: node-cache-{{ .BuildNum }}
           paths: 
