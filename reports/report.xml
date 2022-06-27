@@ -1,53 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="jest tests" tests="11" failures="1" errors="0" time="2.502">
-  <testsuite name="undefined" errors="0" failures="1" skipped="0" timestamp="2022-06-27T20:59:21" time="0.932" tests="1">
-    <testcase classname=" Google Play Status" name=" Google Play Status" time="0.004">
-      <failure>Error: expect(received).toBe(expected) // Object.is equality
-
-Expected: undefined
-Received: 10
-    at Object.toBe (/Users/ryanbourdais/repos/ReactNativeCFD/__tests__/Google-Play-test.js:11:25)
-    at Generator.next (&lt;anonymous&gt;)
-    at asyncGeneratorStep (/Users/ryanbourdais/repos/ReactNativeCFD/node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:24)
-    at _next (/Users/ryanbourdais/repos/ReactNativeCFD/node_modules/@babel/runtime/helpers/asyncToGenerator.js:25:9)
-    at tryCallOne (/Users/ryanbourdais/repos/ReactNativeCFD/node_modules/promise/lib/core.js:37:12)
-    at /Users/ryanbourdais/repos/ReactNativeCFD/node_modules/promise/lib/core.js:123:15
-    at flush (/Users/ryanbourdais/repos/ReactNativeCFD/node_modules/asap/raw.js:50:29)
-    at processTicksAndRejections (node:internal/process/task_queues:77:11)</failure>
+<testsuites name="jest tests" tests="11" failures="0" errors="0" time="2.497">
+  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2022-06-27T21:05:46" time="0.926" tests="1">
+    <testcase classname=" Google Play Status" name=" Google Play Status" time="0.002">
     </testcase>
   </testsuite>
-  <testsuite name="Cart calculation test" errors="0" failures="0" skipped="0" timestamp="2022-06-27T20:59:21" time="1.413" tests="4">
-    <testcase classname="Cart calculation test adding water to cart should cost 1.99" name="Cart calculation test adding water to cart should cost 1.99" time="0.003">
+  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2022-06-27T21:05:46" time="1.437" tests="1">
+    <testcase classname=" renders correctly" name=" renders correctly" time="0.012">
     </testcase>
-    <testcase classname="Cart calculation test adding one of each item should total 42.94" name="Cart calculation test adding one of each item should total 42.94" time="0">
+  </testsuite>
+  <testsuite name="Cart calculation test" errors="0" failures="0" skipped="0" timestamp="2022-06-27T21:05:46" time="1.391" tests="4">
+    <testcase classname="Cart calculation test adding water to cart should cost 1.99" name="Cart calculation test adding water to cart should cost 1.99" time="0.004">
     </testcase>
-    <testcase classname="Cart multiple of one item calculation test adding 5 waters should total 9.95" name="Cart multiple of one item calculation test adding 5 waters should total 9.95" time="0.001">
+    <testcase classname="Cart calculation test adding one of each item should total 42.94" name="Cart calculation test adding one of each item should total 42.94" time="0.001">
+    </testcase>
+    <testcase classname="Cart multiple of one item calculation test adding 5 waters should total 9.95" name="Cart multiple of one item calculation test adding 5 waters should total 9.95" time="0">
     </testcase>
     <testcase classname="Add and removing items to cart add 5 waters then remove 2" name="Add and removing items to cart add 5 waters then remove 2" time="0.001">
     </testcase>
   </testsuite>
-  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2022-06-27T20:59:21" time="1.456" tests="1">
-    <testcase classname=" renders correctly" name=" renders correctly" time="0.014">
-    </testcase>
-  </testsuite>
-  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2022-06-27T20:59:21" time="1.485" tests="1">
+  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2022-06-27T21:05:46" time="1.496" tests="1">
     <testcase classname=" renders correctly" name=" renders correctly" time="0.057">
     </testcase>
   </testsuite>
-  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2022-06-27T20:59:21" time="1.52" tests="1">
-    <testcase classname=" renders correctly" name=" renders correctly" time="0.082">
+  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2022-06-27T21:05:46" time="1.517" tests="1">
+    <testcase classname=" renders correctly" name=" renders correctly" time="0.092">
     </testcase>
   </testsuite>
-  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2022-06-27T20:59:21" time="1.525" tests="1">
-    <testcase classname=" renders correctly" name=" renders correctly" time="0.082">
+  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2022-06-27T21:05:46" time="1.512" tests="1">
+    <testcase classname=" renders correctly" name=" renders correctly" time="0.078">
     </testcase>
   </testsuite>
-  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2022-06-27T20:59:21" time="1.516" tests="1">
-    <testcase classname=" renders correctly" name=" renders correctly" time="0.081">
+  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2022-06-27T21:05:46" time="1.55" tests="1">
+    <testcase classname=" renders correctly" name=" renders correctly" time="0.087">
     </testcase>
   </testsuite>
-  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2022-06-27T20:59:21" time="1.608" tests="1">
-    <testcase classname=" renders correctly" name=" renders correctly" time="0.185">
+  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2022-06-27T21:05:46" time="1.595" tests="1">
+    <testcase classname=" renders correctly" name=" renders correctly" time="0.174">
     </testcase>
   </testsuite>
 </testsuites>
