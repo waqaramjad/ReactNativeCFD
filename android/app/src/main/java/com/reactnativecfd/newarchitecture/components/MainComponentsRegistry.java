@@ -1,4 +1,4 @@
-package com.reactnativecfd.newarchitecture.components;
+package com.reactnativecfdelivery.newarchitecture.components;
 
 import com.facebook.jni.HybridData;
 import com.facebook.proguard.annotations.DoNotStrip;
