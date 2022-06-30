@@ -133,7 +133,7 @@ workflows:
           #   - test
           #   - build
       - deploy-beta:
-          filters:
+          filters: 
             # branches:
             #   only: master
             branches:
