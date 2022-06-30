@@ -74,6 +74,28 @@ jobs:
       - store_artifacts:
           path: android/app/build/outputs/apk
           destination: build
+  deploy-internal:
+    docker:
+      - image: cimg/android:2022.06
+    steps:
+      - checkout
+      - node/install:
+          install-yarn: false
+          node-version: "16.13.0"
+      - run: npm install
+      - run: sudo gem install fastlane
+      - run: cd android &&  bundle install && bundle exec fastlane internal
+  deploy-alpha:
+    docker:
+      - image: cimg/android:2022.06
+    steps:
+      - checkout
+      - node/install:
+          install-yarn: false
+          node-version: "16.13.0"
+      - run: npm install
+      - run: sudo gem install fastlane
+      - run: cd android &&  bundle install && bundle exec fastlane alpha
   deploy-beta:
     docker:
       - image: cimg/android:2022.06
@@ -99,11 +121,28 @@ workflows:
       #       parameters:
       #          node-version: ["12.9.1", "13.9.0", "16.13.0"]
       #          system-image: ["system-images;android-29;default;x86_64", "system-images;android-28;default;x86_64", "system-images;android-29;default;x86", "system-images;android-28;default;x86"]
-      - deploy-beta
-          # filters:
-          #   branches:
-          #     only: master
+      - deploy-alpha
+          filters:
+            branches:
+              only: master
+            tags:
+            only: /^v[0-9]+(\.[0-9]+)*$/
           # requires:
-            # - test
-            # - build
+          #   - test
+          #   - build
+      - deploy-beta
+          filters:
+            branches:
+              only: master
+          # requires:
+          #   - test
+          #   - build
+      - deploy-internal
+          filters:
+            branches:
+              only: master
+          requires:
+            - test
+            - build
+
 

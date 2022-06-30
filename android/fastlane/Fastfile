@@ -21,7 +21,7 @@ platform :android do
     gradle(task: "test")
   end
 
-  lane :beta do
+  lane :internal do
     store_password = "password123"
     # prompt(text: "Signing Store Password: ", secure_text: true) # 1BLbah2ovexNpQHqBrEt ENV[PLAY_STORE_PASSWORD]
     key_password =  "password123"
@@ -41,7 +41,55 @@ platform :android do
     )
     upload_to_play_store(
       track: 'internal',
-      release_status: 'draft'
+      release_status: 'completed'
+    )
+  end
+
+  lane :alpha do
+    store_password = "password123"
+    # prompt(text: "Signing Store Password: ", secure_text: true) # 1BLbah2ovexNpQHqBrEt ENV[PLAY_STORE_PASSWORD]
+    key_password =  "password123"
+    # prompt(text: "Alias Key Password: ", secure_text: true) # 1BLbah2ovexNpQHqBrEt ENV[KEYSTORE_PASSWORD]
+    releaseFilePath = File.join(Dir.pwd, "..", "my-release-key.keystore")
+    gradle(task: 'clean')
+    gradle(
+      task: 'bundle',
+      build_type: 'Release',
+      print_command: false,
+      properties: {
+        "android.injected.signing.store.file" => releaseFilePath,
+        "android.injected.signing.store.password" => store_password,
+        "android.injected.signing.key.alias" => "alias_name",
+        "android.injected.signing.key.password" => key_password,
+      }
+    )
+    upload_to_play_store(
+      track: 'alpha',
+      release_status: 'completed'
+    )
+  end
+
+  lane :beta do
+    store_password = "password123"
+    # prompt(text: "Signing Store Password: ", secure_text: true) # 1BLbah2ovexNpQHqBrEt ENV[PLAY_STORE_PASSWORD]
+    key_password =  "password123"
+    # prompt(text: "Alias Key Password: ", secure_text: true) # 1BLbah2ovexNpQHqBrEt ENV[KEYSTORE_PASSWORD]
+    releaseFilePath = File.join(Dir.pwd, "..", "my-release-key.keystore")
+    gradle(task: 'clean')
+    gradle(
+      task: 'bundle',
+      build_type: 'Release',
+      print_command: false,
+      properties: {
+        "android.injected.signing.store.file" => releaseFilePath,
+        "android.injected.signing.store.password" => store_password,
+        "android.injected.signing.key.alias" => "alias_name",
+        "android.injected.signing.key.password" => key_password,
+      }
+    )
+    upload_to_play_store(
+      track: 'beta',
+      release_status: 'completed'
     )
   end
 
