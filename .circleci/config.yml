@@ -111,50 +111,36 @@ jobs:
 workflows:
   build-and-test-workflow:
     jobs:
-      # - test:
-      #    matrix:
-      #       parameters:
-      #          node-version: ["12.9.1", "13.9.0", "16.13.0"]
-      #          system-image: ["system-images;android-29;default;x86_64", "system-images;android-28;default;x86_64", "system-images;android-29;default;x86", "system-images;android-28;default;x86"]
-      # - build:
-      #     matrix:
-      #       parameters:
-      #          node-version: ["12.9.1", "13.9.0", "16.13.0"]
-      #          system-image: ["system-images;android-29;default;x86_64", "system-images;android-28;default;x86_64", "system-images;android-29;default;x86", "system-images;android-28;default;x86"]
+      - test:
+         matrix:
+            parameters:
+               node-version: ["12.9.1", "13.9.0", "16.13.0"]
+               system-image: ["system-images;android-29;default;x86_64", "system-images;android-28;default;x86_64", "system-images;android-29;default;x86", "system-images;android-28;default;x86"]
+      - build:
+          matrix:
+            parameters:
+               node-version: ["12.9.1", "13.9.0", "16.13.0"]
+               system-image: ["system-images;android-29;default;x86_64", "system-images;android-28;default;x86_64", "system-images;android-29;default;x86", "system-images;android-28;default;x86"]
       - deploy-alpha:
           filters:
-            # branches:
-            #   only: master
             branches:
-              ignore: /.*/
-            tags:
-              only: /^alpha.*/
-          # requires:
-          #   - test
-          #   - build
+              only: alpha-release
+          requires:
+            - test
+            - build
       - deploy-beta:
           filters: 
-            # branches:
-            #   only: master
             branches:
-              ignore: /.*/
-            tags:
-              only: /^beta.*/
-          # filters:
-          #   branches:
-          #     only: master
-          # requires:
-          #   - test
-          #   - build
+              only: beta-release
+          requires:
+            - test
+            - build
       - deploy-internal:
           filters:
             branches:
-              only: master
-              ignore: /.*/
-            tags:
-              only: /^internal.*/
-          # requires:
-          #   - test
-          #   - build
+              only: internal-release
+          requires:
+            - test
+            - build
 
 
