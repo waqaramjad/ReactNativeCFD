@@ -121,23 +121,23 @@ workflows:
       #       parameters:
       #          node-version: ["12.9.1", "13.9.0", "16.13.0"]
       #          system-image: ["system-images;android-29;default;x86_64", "system-images;android-28;default;x86_64", "system-images;android-29;default;x86", "system-images;android-28;default;x86"]
-      - deploy-alpha
+      - deploy-alpha:
           filters:
-            branches:
-              only: master
+            # branches:
+            #   only: master
             tags:
             only: /^v[0-9]+(\.[0-9]+)*$/
           # requires:
           #   - test
           #   - build
-      - deploy-beta
-          filters:
-            branches:
-              only: master
+      - deploy-beta:
+          # filters:
+          #   branches:
+          #     only: master
           # requires:
           #   - test
           #   - build
-      - deploy-internal
+      - deploy-internal:
           filters:
             branches:
               only: master
