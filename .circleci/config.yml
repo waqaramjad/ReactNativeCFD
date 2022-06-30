@@ -82,6 +82,7 @@ jobs:
       - node/install:
           install-yarn: false
           node-version: "16.13.0"
+      - run: npm install
       - run: sudo gem install fastlane
       - run: cd android &&  bundle install && bundle exec fastlane beta
 
