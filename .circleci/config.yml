@@ -75,7 +75,16 @@ jobs:
       - store_artifacts:
           path: android/app/build/outputs/apk
           destination: build
-      
+  deploy-beta:
+    machine:
+      image: android:2022.04.1
+    steps:
+      - checkout
+      - node/install:
+          install-yarn: false
+          node-version: "16.13.0"
+      - run: fastlane beta
+
 workflows:
   build-and-test-workflow:
     jobs:
@@ -89,8 +98,16 @@ workflows:
             parameters:
                node-version: ["12.9.1", "13.9.0", "16.13.0"]
                system-image: ["system-images;android-29;default;x86_64", "system-images;android-28;default;x86_64", "system-images;android-29;default;x86", "system-images;android-28;default;x86"]
-          filters:
-            branches:
-              only: master
+          # filters:
+          #   branches:
+          #     only: master
           requires:
             - test
+      - deploy-beta:
+          # filters:
+          #   branches:
+          #     only: master
+          requires:
+            - test
+            - build
+
