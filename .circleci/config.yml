@@ -82,26 +82,27 @@ jobs:
       - node/install:
           install-yarn: false
           node-version: "16.13.0"
-      - run: fastlane beta
+      - run: sudo gem install fastlane
+      - run: cd android && fastlane beta
 
 workflows:
   build-and-test-workflow:
     jobs:
-      - test:
-         matrix:
-            parameters:
-               node-version: ["12.9.1", "13.9.0", "16.13.0"]
-               system-image: ["system-images;android-29;default;x86_64", "system-images;android-28;default;x86_64", "system-images;android-29;default;x86", "system-images;android-28;default;x86"]
-      - build:
-          matrix:
-            parameters:
-               node-version: ["12.9.1", "13.9.0", "16.13.0"]
-               system-image: ["system-images;android-29;default;x86_64", "system-images;android-28;default;x86_64", "system-images;android-29;default;x86", "system-images;android-28;default;x86"]
+      # - test:
+      #    matrix:
+      #       parameters:
+      #          node-version: ["12.9.1", "13.9.0", "16.13.0"]
+      #          system-image: ["system-images;android-29;default;x86_64", "system-images;android-28;default;x86_64", "system-images;android-29;default;x86", "system-images;android-28;default;x86"]
+      # - build:
+      #     matrix:
+      #       parameters:
+      #          node-version: ["12.9.1", "13.9.0", "16.13.0"]
+      #          system-image: ["system-images;android-29;default;x86_64", "system-images;android-28;default;x86_64", "system-images;android-29;default;x86", "system-images;android-28;default;x86"]
       - deploy-beta:
           # filters:
           #   branches:
           #     only: master
           requires:
-            - test
-            - build
+            # - test
+            # - build
 
