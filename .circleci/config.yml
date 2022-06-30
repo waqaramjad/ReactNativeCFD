@@ -128,7 +128,7 @@ workflows:
             branches:
               ignore: /.*/
             tags:
-              only: /^alpha.*/
+              only: /alpha.*/
           # requires:
           #   - test
           #   - build
@@ -139,7 +139,7 @@ workflows:
             branches:
               ignore: /.*/
             tags:
-              only: /^beta.*/
+              only: /beta.*/
           # filters:
           #   branches:
           #     only: master
@@ -152,7 +152,7 @@ workflows:
               only: master
               ignore: /.*/
             tags:
-              only: /^internal.*/
+              only: /internal.*/
           # requires:
           #   - test
           #   - build
