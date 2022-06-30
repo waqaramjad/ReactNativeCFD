@@ -106,6 +106,9 @@ jobs:
           node-version: "16.13.0"
       - run: npm install
       - run: sudo gem install fastlane
+      - run:
+          name: fastlane
+          command: bundle exec fastlane $FASTLANE_LANE
       - run: cd android &&  bundle install && bundle exec fastlane beta
 
 workflows:
