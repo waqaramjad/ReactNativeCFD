@@ -46,8 +46,8 @@ jobs:
         type: string
       system-image: 
           type: string
-    machine:
-      image: android:2022.04.1
+    docker:
+      - image: cimg/android:2022.06
     parallelism: 5
     steps:
       - checkout
@@ -76,8 +76,8 @@ jobs:
           path: android/app/build/outputs/apk
           destination: build
   deploy-beta:
-    machine:
-      image: android:2022.04.1
+    docker:
+      - image: cimg/android:2022.06
     steps:
       - checkout
       - node/install:
