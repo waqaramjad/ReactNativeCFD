@@ -28,6 +28,31 @@ jobs:
           post-emulator-launch-assemble-command: "adb devices | grep emulator | cut -f1 | while read -r line; do adb -s $line emu kill; done && cd android && gradle aDAT && gradle assembleRelease && gradle aAT"
       - android/kill-emulators
 
+  avd-test:
+    parameters:
+      node-version: 
+        type: string
+      system-image: 
+          type: string
+    machine:
+      image: android:2022.04.1
+    steps:
+      - checkout
+      - node/install:
+          install-yarn: true
+          node-version: << parameters.node-version >>
+      - run: npm install --force
+      - run: sdkmanager "<<parameters.system-image>>"
+      - run: echo "no" | avdmanager --verbose create avd -n avd1 -k "<<parameters.system-image>>"
+      - run: adb start-server
+      - run: 
+          command: npx react-native start
+          background: yes
+          name: run emulator
+      - run: 
+          command: npx react-native run-android && yarn test && cd android && gradle test && adb devices | grep emulator | cut -f1 | while read line; do adb -s $line emu kill; done
+          name: Run emulator, test, and kill
+          
   test:
     parameters:
       node-version: 
@@ -146,6 +171,14 @@ workflows:
           matrix:
             parameters:
                system-image: ["system-images;android-31;google_apis;x86_64", "system-images;android-31;default;x86_64", "system-images;android-32;google_apis;x86_64", "system-images;android-32;google_apis_playstore;x86_64"]
+  avd-test:
+    jobs:
+      - avd-test:
+         matrix:
+            parameters:
+               node-version: ["16.13.0"]
+               system-image: ["system-images;android-31;google_apis;x86_64", "system-images;android-31;default;x86_64", "system-images;android-29;default;x86_64", "system-images;android-28;default;x86_64", "system-images;android-29;default;x86", "system-images;android-28;default;x86"]
+ 
   # build-and-test-workflow:
   #   jobs:
   #     - test:
