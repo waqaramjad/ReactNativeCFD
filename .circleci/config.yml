@@ -20,6 +20,7 @@ jobs:
           avd-name: "avd1"
           install: true
           system-image: << parameters.system-image >>
+      - run: adb start-server
       # - run: 
       #     command: "emulator -avd avd1 -no-boot-anim -verbose"
       #     name: "run emulator"
