@@ -4,6 +4,24 @@ orbs:
   node: circleci/node@5.0.2
   android: circleci/android@2.0.3
 jobs:
+  orb-test:
+    parameters:
+      system-image: 
+          type: string
+    machine:
+      image: android:2022.06.1
+    steps:
+      - checkout
+      - node/install:
+          node-version: "16.13.0"
+      - run: npm install 
+      - android/create-avd:
+          avd-name: "avd1"
+          install: true
+          system-image: << <parameters.system-image >>
+      - android/start-emulator:
+          avd-name: "avd1"
+
   test:
     parameters:
       node-version: 
@@ -116,6 +134,12 @@ jobs:
       - run: cd android &&  bundle install && bundle exec fastlane beta
 
 workflows:
+  orb-test:
+    jobs:
+      - orb-test:
+        matrix:
+            parameters:
+               system-image: ["system-images;android-31;google_apis;x86_64", "system-images;android-31;default;x86_64", "system-images;android-29;default;x86_64", "system-images;android-28;default;x86_64", "system-images;android-29;default;x86", "system-images;android-28;default;x86"]
   build-and-test-workflow:
     jobs:
       - test:
