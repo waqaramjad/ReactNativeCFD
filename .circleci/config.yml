@@ -143,44 +143,41 @@ workflows:
           matrix:
             parameters:
                system-image: ["system-images;android-31;google_apis;x86_64", "system-images;android-31;default;x86_64", "system-images;android-32;google_apis;x86_64", "system-images;android-32;google_apis_playstore;x86_64"]
-  build-and-test-workflow:
-    jobs:
-      - test:
-        matrix:
-          parameters:
-              node-version: ["16.13.0"]
-              system-image: ["system-images;android-31;google_apis;x86_64", "system-images;android-31;default;x86_64", "system-images;android-29;default;x86_64", "system-images;android-28;default;x86_64", "system-images;android-29;default;x86", "system-images;android-28;default;x86"]
-        filters:
-          branches:
-              only: master
-      - build:
-          matrix:
-            parameters:
-               node-version: ["16.13.0"]
-               system-image: ["system-images;android-31;google_apis;x86_64", "system-images;android-31;default;x86_64", "system-images;android-29;default;x86_64", "system-images;android-28;default;x86_64", "system-images;android-29;default;x86", "system-images;android-28;default;x86"]
-          filters:
-            branches:
-              only: master
-      - deploy-alpha:
-          filters:
-            branches:
-              only: alpha-release
-          requires:
-            - test
-            - build
-      - deploy-beta:
-          filters: 
-            branches:
-              only: beta-release
-          requires:
-            - test
-            - build
-      - deploy-internal:
-          filters:
-            branches:
-              only: internal-release
-          requires:
-            - test
-            - build
+  # build-and-test-workflow:
+  #   jobs:
+  #     - test:
+  #        matrix:
+  #           parameters:
+  #              node-version: ["16.13.0"]
+  #              system-image: ["system-images;android-31;google_apis;x86_64", "system-images;android-31;default;x86_64", "system-images;android-29;default;x86_64", "system-images;android-28;default;x86_64", "system-images;android-29;default;x86", "system-images;android-28;default;x86"]
+  #     - build:
+  #         matrix:
+  #           parameters:
+  #              node-version: ["16.13.0"]
+  #              system-image: ["system-images;android-31;google_apis;x86_64", "system-images;android-31;default;x86_64", "system-images;android-29;default;x86_64", "system-images;android-28;default;x86_64", "system-images;android-29;default;x86", "system-images;android-28;default;x86"]
+  #         filters:
+  #           branches:
+  #             only: master
+  #     - deploy-alpha:
+  #         filters:
+  #           branches:
+  #             only: alpha-release
+  #         requires:
+  #           - test
+  #           - build
+  #     - deploy-beta:
+  #         filters: 
+  #           branches:
+  #             only: beta-release
+  #         requires:
+  #           - test
+  #           - build
+  #     - deploy-internal:
+  #         filters:
+  #           branches:
+  #             only: internal-release
+  #         requires:
+  #           - test
+  #           - build
 
 
