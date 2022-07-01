@@ -14,6 +14,7 @@ jobs:
       - checkout
       - node/install:
           node-version: "16.13.0"
+          install-yarn: true
       - run: npm install 
       - android/create-avd:
           avd-name: "avd1"
@@ -25,7 +26,7 @@ jobs:
       #     name: "run emulator"
       - android/start-emulator:
           avd-name: "avd1"
-          post-emulator-launch-assemble-command: "adb devices | grep emulator | cut -f1 | while read -r line; do adb -s $line emu kill; done && cd android && gradle aDAT && gradle assembleRelease && gradle aAT"
+          post-emulator-launch-assemble-command: "yarn test"
       - android/kill-emulators
 
   avd-test:
