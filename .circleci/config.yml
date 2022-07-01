@@ -20,13 +20,13 @@ jobs:
       - run: echo "no" | avdmanager --verbose create avd -n "avd1" -k "<< parameters.system-image >>"
       - run: sdkmanager "add-ons;addon-google_apis-google-24"
       - run: adb start-server
-      # - run: 
-      #     command: "emulator -avd avd1 -no-boot-anim -verbose"
-      #     name: "run emulator"
-      - android/start-emulator:
-          avd-name: "avd1"
-          no-boot-anim: false
-          post-emulator-launch-assemble-command: "yarn test"
+      - run: 
+          command: "emulator -avd avd1 -no-boot-anim"
+          name: "run emulator"
+      # - android/start-emulator:
+      #     avd-name: "avd1"
+      #     no-boot-anim: false
+      #     post-emulator-launch-assemble-command: "yarn test"
       - android/kill-emulators
 
   avd-test:
