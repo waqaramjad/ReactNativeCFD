@@ -19,10 +19,10 @@ jobs:
           avd-name: "avd1"
           install: true
           system-image: << parameters.system-image >>
-      - run: 
-          command: "emulator -avd avd1 -no-boot-anim -verbose"
-          background: yes
-          name: "run emulator"
+      # - run: 
+      #     command: "emulator -avd avd1 -no-boot-anim -verbose"
+      #     background: yes
+      #     name: "run emulator"
       - android/start-emulator:
           avd-name: "avd1"
           post-emulator-launch-assemble-command: "adb devices | grep emulator | cut -f1 | while read -r line; do adb -s $line emu kill; done && cd android && gradle aDAT && gradle assembleRelease && gradle aAT"
