@@ -34,6 +34,8 @@ jobs:
       - run: 
           command: npx react-native run-android && yarn test && cd android && gradle test && adb devices | grep emulator | cut -f1 | while read line; do adb -s $line emu kill; done
           name: Run emulator, test, and kill
+      - run: cd android && gradle assembleRelease && gradle aDAT && gradle aAT
+      - run: cd android && ./gradlew assembleRelease && ./gradlew aDAT && ./gradlew aAT
       - store_test_results:
           path: android/app/build/test-results/testDebugUnitTest
       - store_test_results:
@@ -48,7 +50,6 @@ jobs:
           type: string
     machine:
       image: android:2022.04.1
-    parallelism: 5
     steps:
       - checkout
       - node/install:
@@ -75,22 +76,76 @@ jobs:
       - store_artifacts:
           path: android/app/build/outputs/apk
           destination: build
-      
+  deploy-internal:
+    docker:
+      - image: cimg/android:2022.06
+    steps:
+      - checkout
+      - node/install:
+          install-yarn: false
+          node-version: "16.13.0"
+      - run: npm install
+      - run: sudo gem install fastlane
+      - run: cd android &&  bundle install && bundle exec fastlane internal
+  deploy-alpha:
+    docker:
+      - image: cimg/android:2022.06
+    steps:
+      - checkout
+      - node/install:
+          install-yarn: false
+          node-version: "16.13.0"
+      - run: npm install
+      - run: sudo gem install fastlane
+      - run: cd android &&  bundle install && bundle exec fastlane alpha
+  deploy-beta:
+    docker:
+      - image: cimg/android:2022.06
+    steps:
+      - checkout
+      - node/install:
+          install-yarn: false
+          node-version: "16.13.0"
+      - run: npm install
+      - run: sudo gem install fastlane
+      - run:
+          name: fastlane
+          command: bundle exec fastlane $FASTLANE_LANE
+      - run: cd android &&  bundle install && bundle exec fastlane beta
+
 workflows:
   build-and-test-workflow:
     jobs:
       - test:
          matrix:
             parameters:
-               node-version: ["12.9.1", "13.9.0", "16.13.0"]
-               system-image: ["system-images;android-30;google_apis;x86_64", "system-images;android-29;default;x86_64", "system-images;android-28;default;x86_64", "system-images;android-30;google_apis;x86", "system-images;android-29;default;x86", "system-images;android-28;default;x86"]
+               node-version: ["16.13.0"]
+               system-image: ["system-images;android-31;google_apis;x86_64", "system-images;android-31;default;x86_64", "system-images;android-29;default;x86_64", "system-images;android-28;default;x86_64", "system-images;android-29;default;x86", "system-images;android-28;default;x86"]
       - build:
           matrix:
             parameters:
-               node-version: ["12.9.1", "13.9.0", "16.13.0"]
-               system-image: ["system-images;android-29;default;x86_64", "system-images;android-28;default;x86_64", "system-images;android-29;default;x86", "system-images;android-28;default;x86"]
+               node-version: ["16.13.0"]
+               system-image: ["system-images;android-31;google_apis;x86_64", "system-images;android-31;default;x86_64", "system-images;android-29;default;x86_64", "system-images;android-28;default;x86_64", "system-images;android-29;default;x86", "system-images;android-28;default;x86"]
+      - deploy-alpha:
           filters:
             branches:
-              only: master
+              only: alpha-release
           requires:
             - test
+            - build
+      - deploy-beta:
+          filters: 
+            branches:
+              only: beta-release
+          requires:
+            - test
+            - build
+      - deploy-internal:
+          filters:
+            branches:
+              only: internal-release
+          requires:
+            - test
+            - build
+
+
