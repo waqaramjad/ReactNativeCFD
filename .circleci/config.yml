@@ -23,7 +23,7 @@ jobs:
       - run: "emulator -avd avd1 -no-boot-anim -verbose"
       - android/start-emulator:
           avd-name: "avd1"
-          post-emulator-launch-assemble-command: "cd android && gradle aDAT && gradle assembleRelease && gradle aAT"
+          post-emulator-launch-assemble-command: "adb devices | grep emulator | cut -f1 | while read -r line; do adb -s $line emu kill; done && cd android && gradle aDAT && gradle assembleRelease && gradle aAT"
       - android/kill-emulators
 
   test:
