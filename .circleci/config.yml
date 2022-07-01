@@ -21,7 +21,7 @@ jobs:
       - run: sdkmanager "add-ons;addon-google_apis-google-24"
       - run: adb start-server
       - run: 
-          command: "emulator -avd avd1 -no-audio -no-boot-anim"
+          command: "emulator -avd avd1 -no-audio -no-boot-anim -debug"
           name: "run emulator"
       # - android/start-emulator:
       #     avd-name: "avd1"
