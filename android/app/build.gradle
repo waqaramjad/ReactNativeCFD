@@ -261,23 +261,23 @@ android {
 
         }
     }
-    testOptions {
-        unitTests.all {
-            useJUnitPlatform()
-        }
-    }
-    sourceSets {
-        androidTest {
-            java.srcDirs = ['src/test/java']
-        }
-    }
-    tasks.withType(Test) { 
-        testLogging {
-            exceptionFormat "full"
-            events "started", "skipped", "passed", "failed"
-            showStandardStreams true
-        }
-    }
+    // testOptions {
+    //     unitTests.all {
+    //         useJUnitPlatform()
+    //     }
+    // }
+    // sourceSets {
+    //     androidTest {
+    //         java.srcDirs = ['src/test/java']
+    //     }
+    // }
+    // tasks.withType(Test) { 
+    //     testLogging {
+    //         exceptionFormat "full"
+    //         events "started", "skipped", "passed", "failed"
+    //         showStandardStreams true
+    //     }
+    // }
     
 }
 
@@ -286,8 +286,8 @@ repositories {
 }
 
 dependencies {
-    testImplementation 'junit:junit:4.13'
-     testImplementation('org.junit.jupiter:junit-jupiter:5.8.2')
+    // testImplementation 'junit:junit:4.13'
+    //  testImplementation('org.junit.jupiter:junit-jupiter:5.8.2')
     implementation fileTree(dir: "libs", include: ["*.jar"])
 
     //noinspection GradleDynamicVersion
