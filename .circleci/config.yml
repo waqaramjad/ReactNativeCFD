@@ -50,7 +50,7 @@ jobs:
           background: yes
           name: run emulator
       - run: 
-          command: npx react-native run-android && yarn test && cd android && gradle test && adb devices | grep emulator | cut -f1 | while read line; do adb -s $line emu kill; done
+          command: npx react-native run-android && yarn test && cd android && adb devices | grep emulator | cut -f1 | while read line; do adb -s $line emu kill; done
           name: Run emulator, test, and kill
           
   test:
