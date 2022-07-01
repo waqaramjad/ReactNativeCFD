@@ -26,6 +26,7 @@ jobs:
       #     name: "run emulator"
       - android/start-emulator:
           avd-name: "avd1"
+          no-boot-anim: false
           post-emulator-launch-assemble-command: "yarn test"
       - android/kill-emulators
 
