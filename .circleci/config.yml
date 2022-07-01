@@ -16,8 +16,8 @@ jobs:
           node-version: "16.13.0"
           install-yarn: true
       - run: npm install 
-      - run: sdkmanager "system-images;android-31;default;x86_64"
-      - run: echo "no" | avdmanager --verbose create avd -n "avd1" -k "system-images;android-31;default;x86_64" 
+      - run: sdkmanager << parameters.system-image >>
+      - run: echo "no" | avdmanager --verbose create avd -n "avd1" -k << parameters.system-image >> 
       - run: sdkmanager "add-ons;addon-google_apis-google-24"
       - run: adb start-server
       # - run: 
