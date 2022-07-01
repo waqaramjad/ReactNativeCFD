@@ -19,7 +19,6 @@ jobs:
           avd-name: "avd1"
           install: true
           system-image: << parameters.system-image >>
-      - android/disable-animations
       - run: "emulator -avd avd1 -no-boot-anim -verbose"
       - android/start-emulator:
           avd-name: "avd1"
