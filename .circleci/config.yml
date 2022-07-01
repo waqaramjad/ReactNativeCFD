@@ -24,6 +24,9 @@ jobs:
           key: node-cache-{{ .BuildNum }}
           paths: 
             - node_modules
+      - run: cd android && gradle assembleRelease
+      - run: cd android && gradle aDAT
+      - run: cd android && gradle aAT
       - run: sdkmanager "<<parameters.system-image>>"
       - run: echo "no" | avdmanager --verbose create avd -n avd1 -k "<<parameters.system-image>>"
       - run: adb start-server
@@ -34,7 +37,6 @@ jobs:
       - run: 
           command: npx react-native run-android && yarn test && cd android && gradle test && adb devices | grep emulator | cut -f1 | while read line; do adb -s $line emu kill; done
           name: Run emulator, test, and kill
-      - run: cd android && gradle assembleRelease && gradle aDAT && gradle aAT
       - run: cd android && ./gradlew assembleRelease && ./gradlew aDAT && ./gradlew aAT
       - store_test_results:
           path: android/app/build/test-results/testDebugUnitTest
