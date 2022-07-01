@@ -27,7 +27,7 @@ jobs:
       - android/start-emulator:
           avd-name: "avd1"
           no-boot-anim: false
-          override-args: "-no-audio -no-boot-anim "
+          override-args: "-no-audio"
           post-emulator-launch-assemble-command: "yarn test"
       - android/kill-emulators
 
