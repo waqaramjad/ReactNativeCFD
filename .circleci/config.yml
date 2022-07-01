@@ -8,8 +8,8 @@ jobs:
     parameters:
       system-image: 
           type: string
-    docker:
-      - image: cimg/android:2022.06
+    machine:
+      image: android:2022.06.1
     steps:
       - checkout
       - node/install:
@@ -21,7 +21,7 @@ jobs:
           system-image: << parameters.system-image >>
       - android/start-emulator:
           avd-name: "avd1"
-          post-emulator-launch-assemble-command: "cd android && gradle aDAT"
+          post-emulator-launch-assemble-command: "cd android && gradle aDAT && gradle assembleRelease && gradle aAT"
       - android/kill-emulators
 
   test:
