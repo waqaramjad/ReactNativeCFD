@@ -19,6 +19,7 @@ jobs:
           avd-name: "avd1"
           install: true
           system-image: << parameters.system-image >>
+      - android/disable-animations
       - android/start-emulator:
           avd-name: "avd1"
           post-emulator-launch-assemble-command: "cd android && gradle aDAT && gradle assembleRelease && gradle aAT"
