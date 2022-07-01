@@ -20,6 +20,7 @@ jobs:
           avd-name: "avd1"
           install: true
           system-image: << parameters.system-image >>
+      - run: sdkmanager "add-ons;addon-google_apis-google-24"
       - run: adb start-server
       # - run: 
       #     command: "emulator -avd avd1 -no-boot-anim -verbose"
