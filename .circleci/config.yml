@@ -21,7 +21,7 @@ jobs:
           system-image: << parameters.system-image >>
       - android/start-emulator:
           avd-name: "avd1"
-          post-emulator-start-command: "cd android && gradle aDAT"
+          post-emulator-launch-assemble-command: "cd android && gradle aDAT"
 
   test:
     parameters:
