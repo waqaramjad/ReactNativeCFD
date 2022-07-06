@@ -40,9 +40,13 @@ platform :android do
     #     "android.injected.signing.key.password" => key_password,
     #   }
     # )
+    versions = google_play_track_version_codes(track: "internal")
+    version_code = versions[0]
+
     upload_to_play_store(
       track: 'internal',
-      release_status: 'completed'
+      release_status: 'completed',
+      version_code: version_code
     )
   end
 
