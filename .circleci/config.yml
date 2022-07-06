@@ -218,8 +218,8 @@ workflows:
           # filters:
           #   branches:
           #     only: internal-release
-          # requires:
-          #   - test
-          #   - build
+          requires:
+            - test
+            - build
 
 
