@@ -21,9 +21,6 @@ jobs:
       - run: sdkmanager "add-ons;addon-google_apis-google-24"
       - run: sdkmanager --update
       - run: adb start-server
-      # - run: 
-      #     command: "emulator -avd avd1 -no-audio -no-boot-anim -debug all"
-      #     name: "run emulator"
       - android/start-emulator:
           avd-name: "avd1"
           no-boot-anim: false
@@ -139,6 +136,17 @@ jobs:
           install-yarn: false
           node-version: "16.13.0"
       - run: npm install
+      - run:
+          name: Create Google Play key
+          command: echo $GOOGLE_PLAY_KEY > google-play-key.json
+      - run: ls
+      - run:
+          name: Create keystore.properties
+          command: printf 'releaseKeyAlias=%s\nreleaseKeyPassword=%s\nreleaseKeyStore=%s\nreleaseStorePassword=%s' \
+            $RELEASE_KEY_ALIAS $RELEASE_KEY_PASSWORD $RELEASE_KEYSTORE $RELEASE_STORE_PASSWORD > keystore.properties
+      - run:
+          name: Decode Android key store
+          command: echo $BASE64_KEYSTORE | base64 -d | tee keystore app/keystore > /dev/null
       - run: sudo gem install fastlane
       - run: cd android &&  bundle install && bundle exec fastlane internal
   deploy-alpha:

@@ -129,6 +129,10 @@ def reactNativeArchitectures() {
     return value ? value.split(",") : ["armeabi-v7a", "x86", "x86_64", "arm64-v8a"]
 }
 
+def keyStorePropertiesFile = rootProject.file("keystore.properties")
+def keyStoreProperties = new Properties()
+keyStoreProperties.load(new FileInputStream(keyStorePropertiesFile))
+
 android {
     ndkVersion rootProject.ext.ndkVersion
 
@@ -221,10 +225,14 @@ android {
     }
     signingConfigs {
         release {
-            keyAlias 'alias_name'
-            keyPassword 'password123'
-            storeFile file('../my-release-key.keystore')
-            storePassword 'password123'
+            keyAlias keyStoreProperties['releaseKeyAlias']
+            keyPassword keyStoreProperties['releaseKeyPassword']
+            storeFile file(keyStoreProperties['releaseKeyStore'])
+            storePassword keyStoreProperties['releaseStorePassword']
+            // keyAlias 'alias_name'
+            // keyPassword 'password123'
+            // storeFile file('../my-release-key.keystore')
+            // storePassword 'password123'
         }
         debug {
             storeFile file('debug.keystore')
@@ -241,8 +249,11 @@ android {
             // Caution! In production, you need to generate your own keystore file.
             // see https://reactnative.dev/docs/signed-apk-android.
             signingConfig signingConfigs.release
-            minifyEnabled enableProguardInReleaseBuilds
-            proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            // signingConfig signingConfigs.release
+            // minifyEnabled enableProguardInReleaseBuilds
+            // proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
     }
 
