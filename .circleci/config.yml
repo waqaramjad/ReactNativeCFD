@@ -214,12 +214,12 @@ workflows:
           requires:
             - test
             - build
-      - deploy-internal:
+      - deploy-internal
           # filters:
           #   branches:
           #     only: internal-release
-          requires:
-            - test
-            - build
+          # requires:
+          #   - test
+          #   - build
 
 
