@@ -131,7 +131,6 @@ jobs:
           install-yarn: false
           node-version: "16.13.0"
       - run: npm install
-      - run: cd android && gradle bundle
       - run:
           name: Create keystore.properties
           command: printf 'releaseKeyAlias=%s\nreleaseKeyPassword=%s\nreleaseKeyStore=%s\nreleaseStorePassword=%s' \
@@ -143,6 +142,7 @@ jobs:
           name: Create Google Play key
           command: echo $GOOGLE_PLAY_KEY > google-play-key.json
       - run: sudo gem install fastlane
+      - run: cd android && gradle bundle
       - run: cd android &&  bundle install && bundle exec fastlane internal
   deploy-alpha:
     docker:
