@@ -70,7 +70,7 @@ platform :android do
     )
     upload_to_play_store(
       track: 'alpha',
-      release_status: 'completed'
+      release_status: 'draft'
     )
   end
 
@@ -94,7 +94,7 @@ platform :android do
     )
     upload_to_play_store(
       track: 'beta',
-      release_status: 'completed'
+      release_status: 'draft'
     )
   end
 
