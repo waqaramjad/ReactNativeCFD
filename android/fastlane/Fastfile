@@ -45,7 +45,7 @@ platform :android do
 
     upload_to_play_store(
       track: 'internal',
-      release_status: 'completed',
+      release_status: 'draft',
       version_code: version_code
     )
   end
