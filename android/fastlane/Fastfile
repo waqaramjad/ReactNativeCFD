@@ -25,25 +25,10 @@ platform :android do
   end
 
   lane :internal do
-    # store_password = prompt(text: "Signing Store Password: ", secure_text: true)
-    # key_password =  prompt(text: "Alias Key Password: ", secure_text: true)
-    # releaseFilePath = File.join(Dir.pwd, "..", "")
-    # gradle(task: 'clean')
-    # gradle(
-    #   task: 'bundle',
-    #   build_type: 'Release',
-    #   print_command: false,
-    #   properties: {
-    #     "android.injected.signing.store.file" => releaseFilePath,
-    #     "android.injected.signing.store.password" => store_password,
-    #     "android.injected.signing.key.alias" => "alias_name",
-    #     "android.injected.signing.key.password" => key_password,
-    #   }
-    # )
     versions = google_play_track_version_codes(track: "internal")
     version_code = versions[0]+1
-    releaseFilePath = File.join(Dir.pwd, "..", "")
-    
+    aab: "../build/app/outputs/bundle/release/app-release.aab"
+
     upload_to_play_store(
       track: 'internal',
       release_status: 'draft',
