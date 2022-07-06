@@ -131,7 +131,7 @@ jobs:
           install-yarn: false
           node-version: "16.13.0"
       - run: npm install
-      - run: ls
+      - run: gradle bundle
       - run:
           name: Create keystore.properties
           command: printf 'releaseKeyAlias=%s\nreleaseKeyPassword=%s\nreleaseKeyStore=%s\nreleaseStorePassword=%s' \

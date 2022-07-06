@@ -41,7 +41,7 @@ platform :android do
     #   }
     # )
     versions = google_play_track_version_codes(track: "internal")
-    version_code = versions[0]
+    version_code = versions[0]+1
 
     upload_to_play_store(
       track: 'internal',
