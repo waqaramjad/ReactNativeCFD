@@ -131,9 +131,6 @@ jobs:
           install-yarn: false
           node-version: "16.13.0"
       - run: npm install
-      - run:
-          name: Create Google Play key
-          command: echo $GOOGLE_PLAY_KEY > google-play-key.json
       - run: ls
       - run:
           name: Create keystore.properties
@@ -141,7 +138,10 @@ jobs:
             $RELEASE_KEY_ALIAS $RELEASE_KEY_PASSWORD $RELEASE_KEYSTORE $RELEASE_STORE_PASSWORD > keystore.properties
       - run:
           name: Decode Android key store
-          command: echo $BASE64_KEYSTORE | base64 -d | tee keystore app/keystore > /dev/null
+          command: echo $BASE64_KEYSTORE | base64 -d | tee keystore android/app/keystore > /dev/null
+       - run:
+          name: Create Google Play key
+          command: echo $GOOGLE_PLAY_KEY > google-play-key.json
       - run: sudo gem install fastlane
       - run: cd android &&  bundle install && bundle exec fastlane internal
   deploy-alpha:
