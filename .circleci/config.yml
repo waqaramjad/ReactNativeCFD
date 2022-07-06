@@ -115,7 +115,6 @@ jobs:
       - restore_cache:
           key: build-cache
       - run: rm -rf android/app/build/generated/res/react/release
-      - run: cd android && ./gradlew assembleRelease
       - save_cache:
           key: build-cache-{{ .BuildNum }}
           paths: 
