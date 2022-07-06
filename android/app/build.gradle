@@ -136,7 +136,7 @@ keyStoreProperties.load(new FileInputStream(keyStorePropertiesFile))
 android {
     ndkVersion rootProject.ext.ndkVersion
 
-    compileSdkVersion 27
+    compileSdkVersion 31
 
     defaultConfig {
         applicationId "com.reactnativecfdelivery"
