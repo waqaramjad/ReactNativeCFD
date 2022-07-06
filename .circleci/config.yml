@@ -80,6 +80,10 @@ jobs:
           command: npx react-native start
           background: yes
           name: run emulator
+      - run:
+          name: Create keystore.properties
+          command: cd android && printf 'releaseKeyAlias=%s\nreleaseKeyPassword=%s\nreleaseKeyStore=%s\nreleaseStorePassword=%s' \
+            $RELEASE_KEY_ALIAS $RELEASE_KEY_PASSWORD $RELEASE_KEYSTORE $RELEASE_STORE_PASSWORD > keystore.properties
       - run: 
           command: npx react-native run-android && yarn test && cd android && gradle test && adb devices | grep emulator | cut -f1 | while read line; do adb -s $line emu kill; done
           name: Run emulator, test, and kill
