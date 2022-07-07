@@ -146,7 +146,6 @@ jobs:
           name: Create Google Play key
           command: echo $GOOGLE_PLAY_KEY > google-play-key.json
       - run: sudo gem install fastlane
-      - run: cd android && gradle bundle
       - run: cd android &&  bundle install && bundle exec fastlane internal
   deploy-alpha:
     docker:
