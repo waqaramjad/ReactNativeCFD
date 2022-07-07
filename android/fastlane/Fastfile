@@ -25,15 +25,12 @@ platform :android do
   end
 
   lane :internal do
-    # versions = google_play_track_version_codes(track: "internal")
-    # version_code = versions[0]+1
     gradle(task: "bundle")
     upload_to_play_store(
       track: 'internal',
-      release_status: 'draft',
-      # version_code: version_code,
-      track_promote_release_status: 'draft',
-      aab: "./app/build/outputs/bundle/release/app-release.aab"
+      # release_status: 'draft',
+      # track_promote_release_status: 'draft',
+      # aab: "./app/build/outputs/bundle/release/app-release.aab"
     )
   end
 
