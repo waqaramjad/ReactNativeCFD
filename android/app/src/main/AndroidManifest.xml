@@ -1,6 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="com.reactnativecfdelivery" android:versionCode="17"
-    android:versionName="2.0.6">
+  package="com.reactnativecfdelivery">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
