@@ -21,15 +21,17 @@ platform :android do
     setup_circle_ci
   end
   lane :test do
-    gradle(task: "test")
+    yarn(task: "test")
   end
 
   lane :internal do
-
+    # versions = google_play_track_version_codes(track: "internal")
+    # version_code = versions[0]+1
+    gradle(task: "bundle")
     upload_to_play_store(
       track: 'internal',
       release_status: 'draft',
-      version_code: version_code,
+      # version_code: version_code,
       track_promote_release_status: 'draft',
       aab: "./app/build/outputs/bundle/release/app-release.aab"
     )
