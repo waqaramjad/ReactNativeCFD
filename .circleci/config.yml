@@ -4,54 +4,54 @@ orbs:
   node: circleci/node@5.0.2
   android: circleci/android@2.0.3
 jobs:
-  orb-test:
-    parameters:
-      system-image: 
-          type: string
-    machine:
-      image: android:2022.06.1
-    steps:
-      - checkout
-      - node/install:
-          node-version: "16.13.0"
-          install-yarn: true
-      - run: npm install 
-      - run: sdkmanager "<< parameters.system-image >>"
-      - run: echo "no" | avdmanager --verbose create avd -n "avd1" -k "<< parameters.system-image >>"
-      - run: sdkmanager "add-ons;addon-google_apis-google-24"
-      - run: sdkmanager --update
-      - run: adb start-server
-      - android/start-emulator:
-          avd-name: "avd1"
-          no-boot-anim: false
-          override-args: "-no-audio"
-          post-emulator-launch-assemble-command: "yarn test"
-      - android/kill-emulators
+  # orb-test:
+  #   parameters:
+  #     system-image: 
+  #         type: string
+  #   machine:
+  #     image: android:2022.06.1
+  #   steps:
+  #     - checkout
+  #     - node/install:
+  #         node-version: "16.13.0"
+  #         install-yarn: true
+  #     - run: npm install 
+  #     - run: sdkmanager "<< parameters.system-image >>"
+  #     - run: echo "no" | avdmanager --verbose create avd -n "avd1" -k "<< parameters.system-image >>"
+  #     - run: sdkmanager "add-ons;addon-google_apis-google-24"
+  #     - run: sdkmanager --update
+  #     - run: adb start-server
+  #     - android/start-emulator:
+  #         avd-name: "avd1"
+  #         no-boot-anim: false
+  #         override-args: "-no-audio"
+  #         post-emulator-launch-assemble-command: "yarn test"
+  #     - android/kill-emulators
 
-  avd-test:
-    parameters:
-      node-version: 
-        type: string
-      system-image: 
-          type: string
-    machine:
-      image: android:2022.04.1
-    steps:
-      - checkout
-      - node/install:
-          install-yarn: true
-          node-version: << parameters.node-version >>
-      - run: npm install --force
-      - run: sdkmanager "<<parameters.system-image>>"
-      - run: echo "no" | avdmanager --verbose create avd -n avd1 -k "<<parameters.system-image>>"
-      - run: adb start-server
-      - run: 
-          command: npx react-native start
-          background: yes
-          name: run emulator
-      - run: 
-          command: npx react-native run-android && yarn test && cd android && adb devices | grep emulator | cut -f1 | while read line; do adb -s $line emu kill; done
-          name: Run emulator, test, and kill
+  # avd-test:
+  #   parameters:
+  #     node-version: 
+  #       type: string
+  #     system-image: 
+  #         type: string
+  #   machine:
+  #     image: android:2022.04.1
+  #   steps:
+  #     - checkout
+  #     - node/install:
+  #         install-yarn: true
+  #         node-version: << parameters.node-version >>
+  #     - run: npm install --force
+  #     - run: sdkmanager "<<parameters.system-image>>"
+  #     - run: echo "no" | avdmanager --verbose create avd -n avd1 -k "<<parameters.system-image>>"
+  #     - run: adb start-server
+  #     - run: 
+  #         command: npx react-native start
+  #         background: yes
+  #         name: run emulator
+  #     - run: 
+  #         command: npx react-native run-android && yarn test && cd android && adb devices | grep emulator | cut -f1 | while read line; do adb -s $line emu kill; done
+  #         name: Run emulator, test, and kill
           
   test:
     parameters:
