@@ -214,7 +214,7 @@ exports[`renders correctly 1`] = `
           <Image
             source={
               Object {
-                "uri": "https://sample-python-cfd.herokuapp.com//CFD/1.0.0/image/6",
+                "uri": "https://sample-python-cfd.herokuapp.com//CFD/1.0.0/image/4",
               }
             }
             style={
@@ -914,7 +914,7 @@ exports[`renders correctly 1`] = `
           <Image
             source={
               Object {
-                "uri": "https://sample-python-cfd.herokuapp.com//CFD/1.0.0/image/5",
+                "uri": "https://sample-python-cfd.herokuapp.com//CFD/1.0.0/image/2",
               }
             }
             style={
@@ -1614,7 +1614,7 @@ exports[`renders correctly 1`] = `
           <Image
             source={
               Object {
-                "uri": "https://sample-python-cfd.herokuapp.com//CFD/1.0.0/image/2",
+                "uri": "https://sample-python-cfd.herokuapp.com//CFD/1.0.0/image/5",
               }
             }
             style={
@@ -1964,7 +1964,7 @@ exports[`renders correctly 1`] = `
           <Image
             source={
               Object {
-                "uri": "https://sample-python-cfd.herokuapp.com//CFD/1.0.0/image/4",
+                "uri": "https://sample-python-cfd.herokuapp.com//CFD/1.0.0/image/6",
               }
             }
             style={

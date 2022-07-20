@@ -14,23 +14,27 @@ const styles = StyleSheet.create({
 });
 
 const CartItem = ({menuItem, removeFromCart, index}) => {
-  return (
-    <View style={styles.Container}>
-      <IconButton
-        icon="delete"
-        onPress={() => {
-          removeFromCart(index);
-        }}
-      />
-      <View style={styles.ItemContainer}>
-        <Paragraph style={{marginBottom: 0}}>{menuItem.title}</Paragraph>
-        <Paragraph style={{fontSize: 12, marginTop: 0}}>
-          {menuItem.description}
-        </Paragraph>
-        <Paragraph style={{fontSize: 14}}>${menuItem.cost}</Paragraph>
+  if (menuItem != null) {
+    return (
+      <View style={styles.Container}>
+        <IconButton
+          icon="delete"
+          onPress={() => {
+            removeFromCart(index);
+          }}
+        />
+        <View style={styles.ItemContainer}>
+          <Paragraph style={{marginBottom: 0}}>{menuItem.title}</Paragraph>
+          <Paragraph style={{fontSize: 12, marginTop: 0}}>
+            {menuItem.description}
+          </Paragraph>
+          <Paragraph style={{fontSize: 14}}>${menuItem.cost}</Paragraph>
+        </View>
       </View>
-    </View>
-  );
+    );
+  } else {
+    return <></>;
+  }
 };
 
 export default CartItem;
