@@ -144,18 +144,15 @@ workflows:
             branches:
               only: alpha-release
           requires:
-            - test
             - build
       - deploy-beta:
           filters: 
             branches:
               only: beta-release
           requires:
-            - test
             - build
       - deploy-internal:
           requires:
-            - test
             - build
 
 
