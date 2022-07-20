@@ -15,7 +15,7 @@ const CartDialog = ({
       style={{maxHeight: '70%', paddingBottom: 0}}
       visible={visible}
       onDismiss={() => makeNotVisible()}>
-      <Dialog.Title>Alert</Dialog.Title>
+      <Dialog.Title>Your Cart</Dialog.Title>
       <ScrollView>
         <Dialog.Content style={{paddingBottom: 0, marginBottom: 0}}>
           <Cart cart={cart ? cart : []} removeFromCart={removeFromCart} />

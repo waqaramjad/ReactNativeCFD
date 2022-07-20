@@ -13,7 +13,7 @@ const Cart = ({cart, removeFromCart}) => {
           <>
             <CartItem
               key={i}
-              index={i - 1}
+              index={i}
               menuItem={menuItem}
               removeFromCart={removeFromCart}
             />

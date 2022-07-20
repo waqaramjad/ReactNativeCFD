@@ -13,8 +13,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const CartItem = ({MenuItem, removeFromCart, index}) => {
-  const tempMenuItem = menuData[0];
+const CartItem = ({menuItem, removeFromCart, index}) => {
   return (
     <View style={styles.Container}>
       <IconButton
@@ -24,11 +23,11 @@ const CartItem = ({MenuItem, removeFromCart, index}) => {
         }}
       />
       <View style={styles.ItemContainer}>
-        <Paragraph style={{marginBottom: 0}}>{tempMenuItem.title}</Paragraph>
+        <Paragraph style={{marginBottom: 0}}>{menuItem.title}</Paragraph>
         <Paragraph style={{fontSize: 12, marginTop: 0}}>
-          {tempMenuItem.description}
+          {menuItem.description}
         </Paragraph>
-        <Paragraph style={{fontSize: 14}}>${tempMenuItem.cost}</Paragraph>
+        <Paragraph style={{fontSize: 14}}>${menuItem.cost}</Paragraph>
       </View>
     </View>
   );

@@ -20,8 +20,11 @@ const App = () => {
   };
 
   const addToCart = menuItem => {
-    setCart([...cart, menuItem]);
-    console.warn(menuItem);
+    if (cart.length === 0) {
+      setCart([menuItem]);
+    } else {
+      setCart([...cart, menuItem]);
+    }
   };
 
   const emptyCart = () => {

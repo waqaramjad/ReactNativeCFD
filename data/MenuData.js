@@ -3,7 +3,7 @@ const Menu = [
     id: 0,
     title: 'Water',
     cost: 1.99,
-    image: 'https://sample-python-cfd.herokuapp.com//CFD/1.0.0/image/6',
+    image: 'https://sample-python-cfd.herokuapp.com//CFD/1.0.0/image/4',
     description: 'Fresh from the tap',
   },
   {
@@ -17,7 +17,7 @@ const Menu = [
     id: 2,
     title: 'Stew',
     cost: 12.99,
-    image: 'https://sample-python-cfd.herokuapp.com//CFD/1.0.0/image/5',
+    image: 'https://sample-python-cfd.herokuapp.com//CFD/1.0.0/image/2',
     description: 'A slow cooked stew',
   },
   {
@@ -31,14 +31,14 @@ const Menu = [
     id: 4,
     title: 'Salad',
     cost: 4.99,
-    image: 'https://sample-python-cfd.herokuapp.com//CFD/1.0.0/image/2',
+    image: 'https://sample-python-cfd.herokuapp.com//CFD/1.0.0/image/5',
     description: 'A green salad',
   },
   {
     id: 5,
     title: 'Slice of Pizza',
     cost: 2.99,
-    image: 'https://sample-python-cfd.herokuapp.com//CFD/1.0.0/image/4',
+    image: 'https://sample-python-cfd.herokuapp.com//CFD/1.0.0/image/6',
     description: 'A single slice of pizza',
   },
 ];
