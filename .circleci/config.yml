@@ -34,6 +34,7 @@ jobs:
           avd-name: "avd1"
       - android/start-emulator-and-run-tests:
           test-command: yarn test
+          working-directory: android
       # - run: 
       #     command: npx react-native start
       #     background: true
