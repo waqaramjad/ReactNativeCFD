@@ -152,7 +152,10 @@ workflows:
           requires:
             - build
       - deploy-internal:
+          ranches:
+              only: internal-release
           requires:
             - build
+            
 
 
