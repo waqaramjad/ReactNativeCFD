@@ -35,48 +35,8 @@ jobs:
       - android/start-emulator-and-run-tests:
           test-command: yarn test
           post-emulator-launch-assemble-command: cd android && gradle aDAT
-      # - run: 
-      #     command: npx react-native start
-      #     background: true
-      #     name: run metro
-      # - run: 
-      #     command: npx react-native run-android && yarn test && cd android && gradle test && adb devices | grep emulator | cut -f1 | while read line; do adb -s $line emu kill; done
-      #     name: Run emulator, test, and kill
       - store_test_results:
           path: reports
-  # build:
-  #   parameters:
-  #     node-version: 
-  #       type: string
-  #     system-image: 
-  #         type: string
-  #   machine:
-  #     image: android:2022.04.1
-  #   steps:
-  #     - checkout
-  #     - node/install:
-  #         install-yarn: false
-  #         node-version: << parameters.node-version >>
-  #     - restore_cache:
-  #         key: node-cache-{{ .BuildNum }}
-  #     - run: npm install
-  #     - save_cache:
-  #         key: node-cache-{{ .BuildNum }}
-  #         paths: 
-  #           - node_modules
-  #     - run: sdkmanager "<<parameters.system-image>>"
-  #     - run: echo "no" | avdmanager --verbose create avd -n avd1 -k "<<parameters.system-image>>"
-  #     - run: adb start-server
-  #     - restore_cache:
-  #         key: build-cache
-  #     - run: rm -rf android/app/build/generated/res/react/release
-  #     - save_cache:
-  #         key: build-cache-{{ .BuildNum }}
-  #         paths: 
-  #           - android/app/build/outputs/apk
-  #     - store_artifacts:
-  #         path: android/app/build/outputs/apk
-  #         destination: build
   deploy-internal:
     docker:
       - image: cimg/android:2022.06
