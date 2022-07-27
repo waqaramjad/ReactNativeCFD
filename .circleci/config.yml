@@ -4,7 +4,7 @@ orbs:
   node: circleci/node@5.0.2
   android: circleci/android@2.0.3
 jobs:
-  test:
+  build-and-test:
     parameters:
       node-version: 
         type: string
@@ -24,59 +24,57 @@ jobs:
           key: node-cache-{{ .BuildNum }}
           paths: 
             - node_modules
-      - run: sdkmanager "<<parameters.system-image>>"
-      - run: echo "no" | avdmanager --verbose create avd -n avd1 -k "<<parameters.system-image>>"
-      - run: adb start-server
-      - run: 
-          command: npx react-native start
-          background: true
-          name: run emulator
       - run:
           name: Create keystore.properties
           command: cd android && printf 'releaseKeyAlias=%s\nreleaseKeyPassword=%s\nreleaseKeyStore=%s\nreleaseStorePassword=%s' \
             $RELEASE_KEY_ALIAS $RELEASE_KEY_PASSWORD $RELEASE_KEYSTORE $RELEASE_STORE_PASSWORD > keystore.properties
-      - run: 
-          command: npx react-native run-android && yarn test && cd android && gradle test && adb devices | grep emulator | cut -f1 | while read line; do adb -s $line emu kill; done
-          name: Run emulator, test, and kill
-      - store_test_results:
-          path: android/app/build/test-results/testDebugUnitTest
-      - store_test_results:
-          path: android/app/build/test-results/testReleaseUnitTest
+      - android/create-avd: 
+          system-image: <<parameters.system-image>>
+          avd-name: "avd1"
+      - android/start-emulator-and-run-tests:
+          test-command: yarn test
+      # - run: 
+      #     command: npx react-native start
+      #     background: true
+      #     name: run metro
+      # - run: 
+      #     command: npx react-native run-android && yarn test && cd android && gradle test && adb devices | grep emulator | cut -f1 | while read line; do adb -s $line emu kill; done
+      #     name: Run emulator, test, and kill
       - store_test_results:
           path: reports
-  build:
-    parameters:
-      node-version: 
-        type: string
-      system-image: 
-          type: string
-    machine:
-      image: android:2022.04.1
-    steps:
-      - checkout
-      - node/install:
-          install-yarn: false
-          node-version: << parameters.node-version >>
-      - restore_cache:
-          key: node-cache-{{ .BuildNum }}
-      - run: npm install
-      - save_cache:
-          key: node-cache-{{ .BuildNum }}
-          paths: 
-            - node_modules
-      - run: sdkmanager "<<parameters.system-image>>"
-      - run: echo "no" | avdmanager --verbose create avd -n avd1 -k "<<parameters.system-image>>"
-      - run: adb start-server
-      - restore_cache:
-          key: build-cache
-      - run: rm -rf android/app/build/generated/res/react/release
-      - save_cache:
-          key: build-cache-{{ .BuildNum }}
-          paths: 
-            - android/app/build/outputs/apk
-      - store_artifacts:
-          path: android/app/build/outputs/apk
-          destination: build
+  # build:
+  #   parameters:
+  #     node-version: 
+  #       type: string
+  #     system-image: 
+  #         type: string
+  #   machine:
+  #     image: android:2022.04.1
+  #   steps:
+  #     - checkout
+  #     - node/install:
+  #         install-yarn: false
+  #         node-version: << parameters.node-version >>
+  #     - restore_cache:
+  #         key: node-cache-{{ .BuildNum }}
+  #     - run: npm install
+  #     - save_cache:
+  #         key: node-cache-{{ .BuildNum }}
+  #         paths: 
+  #           - node_modules
+  #     - run: sdkmanager "<<parameters.system-image>>"
+  #     - run: echo "no" | avdmanager --verbose create avd -n avd1 -k "<<parameters.system-image>>"
+  #     - run: adb start-server
+  #     - restore_cache:
+  #         key: build-cache
+  #     - run: rm -rf android/app/build/generated/res/react/release
+  #     - save_cache:
+  #         key: build-cache-{{ .BuildNum }}
+  #         paths: 
+  #           - android/app/build/outputs/apk
+  #     - store_artifacts:
+  #         path: android/app/build/outputs/apk
+  #         destination: build
   deploy-internal:
     docker:
       - image: cimg/android:2022.06
@@ -107,6 +105,16 @@ jobs:
           install-yarn: false
           node-version: "16.13.0"
       - run: npm install
+      - run:
+          name: Decode Android key store
+          command: echo $BASE64_KEYSTORE | base64 -d | tee keystore android/app/keystore > /dev/null
+      - run:
+          name: Create keystore.properties
+          command: cd android && printf 'releaseKeyAlias=%s\nreleaseKeyPassword=%s\nreleaseKeyStore=%s\nreleaseStorePassword=%s' \
+            $RELEASE_KEY_ALIAS $RELEASE_KEY_PASSWORD $RELEASE_KEYSTORE $RELEASE_STORE_PASSWORD > keystore.properties
+      - run:
+          name: Create Google Play key
+          command: echo $GOOGLE_PLAY_KEY > google-play-key.json
       - run: sudo gem install fastlane
       - run: cd android &&  bundle install && bundle exec fastlane alpha
   deploy-beta:
@@ -118,45 +126,45 @@ jobs:
           install-yarn: false
           node-version: "16.13.0"
       - run: npm install
-      - run: sudo gem install fastlane
       - run:
-          name: fastlane
-          command: bundle exec fastlane $FASTLANE_LANE
+          name: Decode Android key store
+          command: echo $BASE64_KEYSTORE | base64 -d | tee keystore android/app/keystore > /dev/null
+      - run:
+          name: Create keystore.properties
+          command: cd android && printf 'releaseKeyAlias=%s\nreleaseKeyPassword=%s\nreleaseKeyStore=%s\nreleaseStorePassword=%s' \
+            $RELEASE_KEY_ALIAS $RELEASE_KEY_PASSWORD $RELEASE_KEYSTORE $RELEASE_STORE_PASSWORD > keystore.properties
+      - run:
+          name: Create Google Play key
+          command: echo $GOOGLE_PLAY_KEY > google-play-key.json
+      - run: sudo gem install fastlane
       - run: cd android &&  bundle install && bundle exec fastlane beta
 
 workflows:
   build-and-test-workflow:
     jobs:
-      - test:
+      - build-and-test:
          matrix:
             parameters:
                node-version: ["16.13.0"]
                system-image: ["system-images;android-31;google_apis;x86_64", "system-images;android-31;default;x86_64", "system-images;android-29;default;x86_64", "system-images;android-28;default;x86_64", "system-images;android-29;default;x86", "system-images;android-28;default;x86"]
-      - build:
-          matrix:
-            parameters:
-               node-version: ["16.13.0"]
-               system-image: ["system-images;android-31;google_apis;x86_64"]
-          requires:
-            - test
       - deploy-alpha:
           filters:
             branches:
               only: alpha-release
           requires:
-            - build
+            - build-and-test
       - deploy-beta:
           filters: 
             branches:
               only: beta-release
           requires:
-            - build
+            - build-and-test
       - deploy-internal:
           filters:
             branches:
               only: internal-release
           requires:
-            - build
+            - build-and-test
             
 
 
