@@ -3,6 +3,7 @@ apply plugin: "com.android.application"
 import com.android.build.OutputFile
 import org.apache.tools.ant.taskdefs.condition.Os
 import java.time.LocalDateTime
+import java.util.Random
 
 /**
  * The react.gradle file registers a task for each build variant (e.g. bundleDebugJsAndAssets
@@ -143,9 +144,10 @@ ext.isSnapShot = false
 ext.minSdkVersion = 21
 
 private Integer generateVersionCode() {
-    def dateTime = LocalDateTime.now()
-    def dateTimeInt = dateTime.ReplaceAll("-"|"."|":","");
-    return dateTimeInt;
+    Random rand = new Random();
+    int upperbound = 10000000;
+    int versionCode = rand.nextInt(upperbound); 
+    return versionCode;
 }
 
 private String generateVersionName() {
