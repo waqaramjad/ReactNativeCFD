@@ -1,15 +1,15 @@
 version: 2.1
 
-orbs: 
+orbs:
   node: circleci/node@5.0.2
   android: circleci/android@2.0.3
 jobs:
   build-and-test:
     parameters:
-      node-version: 
+      node-version:
         type: string
-      system-image: 
-          type: string
+      system-image:
+        type: string
     machine:
       image: android:2022.04.1
     steps:
@@ -22,16 +22,17 @@ jobs:
       - run: npm install --force
       - save_cache:
           key: node-cache-{{ .BuildNum }}
-          paths: 
+          paths:
             - node_modules
       - run:
           name: Create keystore.properties
-          command: cd android && printf 'releaseKeyAlias=%s\nreleaseKeyPassword=%s\nreleaseKeyStore=%s\nreleaseStorePassword=%s' \
+          command:
+            cd android && printf 'releaseKeyAlias=%s\nreleaseKeyPassword=%s\nreleaseKeyStore=%s\nreleaseStorePassword=%s' \
             $RELEASE_KEY_ALIAS $RELEASE_KEY_PASSWORD $RELEASE_KEYSTORE $RELEASE_STORE_PASSWORD > keystore.properties
-      - android/create-avd: 
+      - android/create-avd:
           system-image: <<parameters.system-image>>
           install: true
-          avd-name: "avd1"
+          avd-name: 'avd1'
       - android/start-emulator-and-run-tests:
           test-command: yarn test
           post-emulator-launch-assemble-command: cd android && gradle aDAT
@@ -44,20 +45,32 @@ jobs:
       - checkout
       - node/install:
           install-yarn: false
-          node-version: "16.13.0"
+          node-version: '16.13.0'
       - run: npm install
       - run:
           name: Decode Android key store
           command: echo $BASE64_KEYSTORE | base64 -d | tee keystore android/app/keystore > /dev/null
       - run:
           name: Create keystore.properties
-          command: cd android && printf 'releaseKeyAlias=%s\nreleaseKeyPassword=%s\nreleaseKeyStore=%s\nreleaseStorePassword=%s' \
+          command:
+            cd android && printf 'releaseKeyAlias=%s\nreleaseKeyPassword=%s\nreleaseKeyStore=%s\nreleaseStorePassword=%s' \
             $RELEASE_KEY_ALIAS $RELEASE_KEY_PASSWORD $RELEASE_KEYSTORE $RELEASE_STORE_PASSWORD > keystore.properties
-      - run:
-          name: Create Google Play key
-          command: echo $GOOGLE_PLAY_KEY > google-play-key.json
+      # - run:
+      #     name: Create Google Play key
+      #     command: echo $GOOGLE_PLAY_KEY > google-play-key.json
       - run: sudo gem install fastlane
-      - run: cd android &&  bundle install && bundle exec fastlane internal
+      - run: rm -rf android/app/build/generated/res/react/release
+      - run: cd android && ./gradlew assembleRelease
+      - save_cache:
+          key: build-cache-{{ .BuildNum }}
+          paths:
+            - android/app/build/outputs/apk
+      - store_artifacts:
+          path: android/app/build/outputs/apk
+          destination: build
+      # - run: cd android &&  bundle install && bundle exec fastlane internal
+      # - run: cd android &&  bundle install && bundle exec fastlane internal
+      # - run: cd android && ./gradlew clean && ./gradlew assemblerelease
   deploy-alpha:
     docker:
       - image: cimg/android:2022.06
@@ -65,14 +78,15 @@ jobs:
       - checkout
       - node/install:
           install-yarn: false
-          node-version: "16.13.0"
+          node-version: '16.13.0'
       - run: npm install
       - run:
           name: Decode Android key store
           command: echo $BASE64_KEYSTORE | base64 -d | tee keystore android/app/keystore > /dev/null
       - run:
           name: Create keystore.properties
-          command: cd android && printf 'releaseKeyAlias=%s\nreleaseKeyPassword=%s\nreleaseKeyStore=%s\nreleaseStorePassword=%s' \
+          command:
+            cd android && printf 'releaseKeyAlias=%s\nreleaseKeyPassword=%s\nreleaseKeyStore=%s\nreleaseStorePassword=%s' \
             $RELEASE_KEY_ALIAS $RELEASE_KEY_PASSWORD $RELEASE_KEYSTORE $RELEASE_STORE_PASSWORD > keystore.properties
       - run:
           name: Create Google Play key
@@ -86,14 +100,15 @@ jobs:
       - checkout
       - node/install:
           install-yarn: false
-          node-version: "16.13.0"
+          node-version: '16.13.0'
       - run: npm install
       - run:
           name: Decode Android key store
           command: echo $BASE64_KEYSTORE | base64 -d | tee keystore android/app/keystore > /dev/null
       - run:
           name: Create keystore.properties
-          command: cd android && printf 'releaseKeyAlias=%s\nreleaseKeyPassword=%s\nreleaseKeyStore=%s\nreleaseStorePassword=%s' \
+          command:
+            cd android && printf 'releaseKeyAlias=%s\nreleaseKeyPassword=%s\nreleaseKeyStore=%s\nreleaseStorePassword=%s' \
             $RELEASE_KEY_ALIAS $RELEASE_KEY_PASSWORD $RELEASE_KEYSTORE $RELEASE_STORE_PASSWORD > keystore.properties
       - run:
           name: Create Google Play key
@@ -105,10 +120,18 @@ workflows:
   build-and-test-workflow:
     jobs:
       - build-and-test:
-         matrix:
+          matrix:
             parameters:
-               node-version: ["16.13.0"]
-               system-image: ["system-images;android-31;google_apis;x86_64", "system-images;android-31;default;x86_64", "system-images;android-29;default;x86_64", "system-images;android-28;default;x86_64", "system-images;android-29;default;x86", "system-images;android-28;default;x86"]
+              node-version: ['16.13.0']
+              system-image:
+                [
+                  'system-images;android-31;google_apis;x86_64',
+                  'system-images;android-31;default;x86_64',
+                  'system-images;android-29;default;x86_64',
+                  'system-images;android-28;default;x86_64',
+                  'system-images;android-29;default;x86',
+                  'system-images;android-28;default;x86',
+                ]
       - deploy-alpha:
           filters:
             branches:
@@ -116,7 +139,7 @@ workflows:
           requires:
             - build-and-test
       - deploy-beta:
-          filters: 
+          filters:
             branches:
               only: beta-release
           requires:
@@ -127,6 +150,3 @@ workflows:
           #     only: internal-release
           requires:
             - build-and-test
-            
-
-
